@@ -17,7 +17,7 @@ public class AppManager {
     }
  
     /**
-     * ��ʵ�� , UI���迼�Ƕ��߳�ͬ������
+     * 
      */
     public static AppManager getAppManager() {
         if (instance == null) {
