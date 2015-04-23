@@ -23,6 +23,7 @@ public class Utils {
 		startActivityForResult(activity, clazz, null, resultCode);
 	}
 
+	
 	/**
 	 * @param activity
 	 * @param clazz
