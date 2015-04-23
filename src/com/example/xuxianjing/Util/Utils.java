@@ -49,8 +49,8 @@ public class Utils {
 	public static void startActivity(Context context, Class clazz) {
 		Intent intent = new Intent();
 		intent.setClass(context, clazz);
-		// 2012-05-15 Èç¹ûÖ÷¹¦ÄÜactivityÔÚtask´æÔÚ£¬
-		// ½«ActivityÖ®ÉÏµÄËùÓĞActivity½áÊøµô.´Ó¶ø½â¾öºóÍËÊ±³öÏÖ²éÑ¯¿òÎÊÌâ¡£
+		// 2012-05-15 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½activityï¿½ï¿½taskï¿½ï¿½ï¿½Ú£ï¿½
+		// ï¿½ï¿½ActivityÖ®ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Activityï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ö²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½â¡£
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		context.startActivity(intent);
 		// ((Activity) context).finish();
@@ -65,8 +65,6 @@ public class Utils {
 	public static void startActivity(Context context, Class clazz, Bundle bundle) {
 		Intent intent = new Intent();
 		intent.setClass(context, clazz);
-		// 2012-05-15 Èç¹ûÖ÷¹¦ÄÜactivityÔÚtask´æÔÚ£¬
-		// ½«ActivityÖ®ÉÏµÄËùÓĞActivity½áÊøµô.´Ó¶ø½â¾öºóÍËÊ±³öÏÖ²éÑ¯¿òÎÊÌâ¡£
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 		if (bundle != null) {
