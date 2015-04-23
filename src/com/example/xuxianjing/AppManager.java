@@ -20,6 +20,7 @@ public class AppManager {
         if (instance == null) {
             instance = new AppManager();
         }
+        
         return instance;
     }
  
