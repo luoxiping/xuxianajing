@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="main_background">#f9f9f9</color> 
+	<color name="btn_red_pressed">#cb0a0e</color>
+    <color name="btn_orange_normal">#F14118</color> 
+    <color name="btn_orange_pressed">#ff8f23</color>  
+    <color name="white">#ffffff</color>
+    <color name="light_gray">#eeeeee</color>
+    <color name="grey_line">#cecece</color>
+    <color name="blue">#3A5FCD</color>
+    
+    <color name="text_color1">#FFFFFF</color>
+    <color name="divider_color">#11000000</color>
+    <color name="msg_color">#FFFFFFFF</color>
+    <color name="dialog_bg">#ffe74c3c</color>
+    
+    <color name="btn_press_color">#1c9dd8</color>
+    <color name="btn_unpress_color">#48baed</color>
+</resources>
