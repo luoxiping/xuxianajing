@@ -9,7 +9,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 
 public class AppManager {
-	
 	private static Stack<BaseActivity> activityStack;
     private static AppManager instance;
  
