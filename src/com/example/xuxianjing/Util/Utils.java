@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.example.xuxianjing.AppManager;
 
 public class Utils {
-	
 	public static void showMessage(String msg){
 		Toast.makeText(AppManager.getAppManager().currentActivity(), msg, Toast.LENGTH_LONG).show();
 	}
