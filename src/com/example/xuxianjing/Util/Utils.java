@@ -13,7 +13,6 @@ public class Utils {
 		Toast.makeText(AppManager.getAppManager().currentActivity(), msg, Toast.LENGTH_LONG).show();
 	}
 	
-	
 	/**
 	 * @param activity
 	 * @param clazz
