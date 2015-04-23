@@ -15,10 +15,7 @@ public class AppManager {
     private AppManager() {
     	
     }
- 
-    /**
-     * 
-     */
+    
     public static AppManager getAppManager() {
         if (instance == null) {
             instance = new AppManager();
