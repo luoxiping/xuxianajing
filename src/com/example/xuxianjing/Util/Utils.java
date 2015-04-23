@@ -22,7 +22,6 @@ public class Utils {
 			int resultCode) {
 		startActivityForResult(activity, clazz, null, resultCode);
 	}
-
 	
 	/**
 	 * @param activity
