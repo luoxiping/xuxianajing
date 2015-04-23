@@ -12,11 +12,12 @@ public class AppManager {
 	private static Stack<BaseActivity> activityStack;
     private static AppManager instance;
  
+    
     private AppManager() {
     }
  
     /**
-     * µ¥ÊµÀý , UIÎÞÐè¿¼ÂÇ¶àÏß³ÌÍ¬²½ÎÊÌâ
+     * ï¿½ï¿½Êµï¿½ï¿½ , UIï¿½ï¿½ï¿½è¿¼ï¿½Ç¶ï¿½ï¿½ß³ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static AppManager getAppManager() {
         if (instance == null) {
@@ -26,7 +27,7 @@ public class AppManager {
     }
  
     /**
-     * Ìí¼ÓActivityµ½Õ»
+     * ï¿½ï¿½ï¿½Activityï¿½ï¿½Õ»
      */
     public void addActivity(BaseActivity activity) {
         if (activityStack == null) {
@@ -36,7 +37,7 @@ public class AppManager {
     }
  
     /**
-     * »ñÈ¡µ±Ç°Activity£¨Õ»¶¥Activity£©
+     * ï¿½ï¿½È¡ï¿½ï¿½Ç°Activityï¿½ï¿½Õ»ï¿½ï¿½Activityï¿½ï¿½
      */
     public BaseActivity currentActivity() {
         if (activityStack == null || activityStack.isEmpty()) {
@@ -47,7 +48,7 @@ public class AppManager {
     }
  
     /**
-     * »ñÈ¡µ±Ç°Activity£¨Õ»¶¥Activity£© Ã»ÓÐÕÒµ½Ôò·µ»Ønull
+     * ï¿½ï¿½È¡ï¿½ï¿½Ç°Activityï¿½ï¿½Õ»ï¿½ï¿½Activityï¿½ï¿½ Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ò·µ»ï¿½null
      */
     public BaseActivity findActivity(Class<?> cls) {
         BaseActivity activity = null;
@@ -61,7 +62,7 @@ public class AppManager {
     }
  
     /**
-     * ½áÊøµ±Ç°Activity£¨Õ»¶¥Activity£©
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Activityï¿½ï¿½Õ»ï¿½ï¿½Activityï¿½ï¿½
      */
     public void finishActivity() {
         BaseActivity activity = activityStack.lastElement();
@@ -69,7 +70,7 @@ public class AppManager {
     }
  
     /**
-     * ½áÊøÖ¸¶¨µÄActivity(ÖØÔØ)
+     * ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Activity(ï¿½ï¿½ï¿½ï¿½)
      */
     public void finishActivity(Activity activity) {
         if (activity != null) {
@@ -80,7 +81,7 @@ public class AppManager {
     }
  
     /**
-     * ½áÊøÖ¸¶¨µÄActivity(ÖØÔØ)
+     * ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Activity(ï¿½ï¿½ï¿½ï¿½)
      */
     public void finishActivity(Class<?> cls) {
         for (BaseActivity activity : activityStack) {
@@ -91,7 +92,7 @@ public class AppManager {
     }
  
     /**
-     * ¹Ø±Õ³ýÁËÖ¸¶¨activityÒÔÍâµÄÈ«²¿activity Èç¹ûcls²»´æÔÚÓÚÕ»ÖÐ£¬ÔòÕ»È«²¿Çå¿Õ
+     * ï¿½Ø±Õ³ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½activityï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½activity ï¿½ï¿½ï¿½clsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Ð£ï¿½ï¿½ï¿½Õ»È«ï¿½ï¿½ï¿½ï¿½ï¿½
      * 
      * @param cls
      */
@@ -104,7 +105,7 @@ public class AppManager {
     }
  
     /**
-     * ½áÊøËùÓÐActivity
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Activity
      */
     public void finishAllActivity() {
         for (int i = 0, size = activityStack.size(); i < size; i++) {
@@ -116,7 +117,7 @@ public class AppManager {
     }
  
     /**
-     * Ó¦ÓÃ³ÌÐòÍË³ö
+     * Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ë³ï¿½
      */
     public void AppExit(Context context) {
         try {
