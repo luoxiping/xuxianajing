@@ -38,7 +38,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         if (mAllowFullScreen) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE); // ȡ������
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
         AppManager.getAppManager().addActivity(this);
         initWidget();

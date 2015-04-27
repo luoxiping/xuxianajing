@@ -1,6 +1,7 @@
 package com.example.xuxianjing.activity;
 
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.adapter.SingleDmAdapter;
 import com.example.xuxianjing.dialog.Effectstype;
 import com.example.xuxianjing.dialog.NiftyDialogBuilder;
@@ -65,8 +66,19 @@ public class MainActivity extends BaseActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parentView, View view,
 						int position, long id) {
-					singleBaseAdapter.setName(txts[position]);
-					singleBaseAdapter.notifyDataSetChanged();
+//					singleBaseAdapter.setName(txts[position]);
+//					singleBaseAdapter.notifyDataSetChanged();
+					switch (position) {
+					case 0:
+						Utils.startActivity(MainActivity.this, ImageLocalActivity.class);
+						break;
+					case 1:
+						
+						break;
+
+					default:
+						break;
+					}
 					dialogBuilder.dismiss();
 				}
 			});

@@ -21,7 +21,6 @@ public class AppManager {
             instance = new AppManager();
         }
         
-        
         return instance;
     }
  

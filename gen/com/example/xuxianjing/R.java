@@ -10,6 +10,8 @@ package com.example.xuxianjing;
 public final class R {
     public static final class anim {
         public static final int loading_animation=0x7f040000;
+        public static final int slide_in=0x7f040001;
+        public static final int slide_out=0x7f040002;
     }
     public static final class attr {
     }
@@ -58,64 +60,83 @@ public final class R {
         public static final int btn_unpress1=0x7f020005;
         public static final int circle_corner_frame=0x7f020006;
         public static final int dialog_bg1=0x7f020007;
-        public static final int ic_launcher=0x7f020008;
-        public static final int layout_button_selector=0x7f020009;
-        public static final int loading_icon=0x7f02000a;
-        public static final int medical_history_bg_fenge=0x7f02000b;
-        public static final int medical_history_gou2=0x7f02000c;
-        public static final int password_invisible=0x7f02000d;
-        public static final int password_visible=0x7f02000e;
-        public static final int radio_button_bg=0x7f02000f;
-        public static final int text_btn_orange_selector=0x7f020010;
-        public static final int xuxianjing=0x7f020011;
+        public static final int dir_choose=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int layout_button_selector=0x7f02000a;
+        public static final int loading_icon=0x7f02000b;
+        public static final int medical_history_bg_fenge=0x7f02000c;
+        public static final int medical_history_gou2=0x7f02000d;
+        public static final int password_invisible=0x7f02000e;
+        public static final int password_visible=0x7f02000f;
+        public static final int pic_dir=0x7f020010;
+        public static final int picture_unselected=0x7f020011;
+        public static final int pictures_no=0x7f020012;
+        public static final int pictures_selected=0x7f020013;
+        public static final int radio_button_bg=0x7f020014;
+        public static final int text_btn_orange_selector=0x7f020015;
+        public static final int xuxianjing=0x7f020016;
     }
     public static final class id {
-        public static final int account_edit=0x7f0a0003;
-        public static final int account_layout=0x7f0a0000;
-        public static final int action_settings=0x7f0a0022;
-        public static final int activity_operation_btn=0x7f0a0016;
-        public static final int activity_title=0x7f0a0015;
-        public static final int alertTitle=0x7f0a000f;
-        public static final int button1=0x7f0a0013;
-        public static final int button2=0x7f0a0014;
-        public static final int contentPanel=0x7f0a0010;
-        public static final int customPanel=0x7f0a0012;
-        public static final int email=0x7f0a001f;
-        public static final int icon=0x7f0a000e;
-        public static final int image=0x7f0a001b;
-        public static final int item_label=0x7f0a0002;
-        public static final int iv_txt=0x7f0a0020;
-        public static final int list=0x7f0a0009;
-        public static final int loading_dialog=0x7f0a0017;
-        public static final int loading_image=0x7f0a0018;
-        public static final int login_button=0x7f0a0008;
-        public static final int main=0x7f0a000a;
-        public static final int message=0x7f0a0011;
-        public static final int name=0x7f0a001c;
-        public static final int parentPanel=0x7f0a000b;
-        public static final int password=0x7f0a001d;
-        public static final int password_again=0x7f0a001e;
-        public static final int pwd_edit=0x7f0a0006;
-        public static final int pwd_layout=0x7f0a0004;
-        public static final int rb_check=0x7f0a0021;
-        public static final int register=0x7f0a0007;
-        public static final int show_pwd=0x7f0a0005;
-        public static final int stub=0x7f0a0001;
-        public static final int tip_view=0x7f0a0019;
-        public static final int title_template=0x7f0a000d;
-        public static final int topPanel=0x7f0a000c;
-        public static final int upload_picture=0x7f0a001a;
+        public static final int account_edit=0x7f0a0007;
+        public static final int account_layout=0x7f0a0004;
+        public static final int action_settings=0x7f0a002c;
+        public static final int activity_operation_btn=0x7f0a001c;
+        public static final int activity_title=0x7f0a001b;
+        public static final int alertTitle=0x7f0a0013;
+        public static final int button1=0x7f0a0017;
+        public static final int button2=0x7f0a0018;
+        public static final int contentPanel=0x7f0a0014;
+        public static final int customPanel=0x7f0a0016;
+        public static final int email=0x7f0a0029;
+        public static final int icon=0x7f0a0012;
+        public static final int id_bottom_ly=0x7f0a0001;
+        public static final int id_choose_dir=0x7f0a0002;
+        public static final int id_dir_item_count=0x7f0a0020;
+        public static final int id_dir_item_image=0x7f0a001e;
+        public static final int id_dir_item_name=0x7f0a001f;
+        public static final int id_gridView=0x7f0a0000;
+        public static final int id_item_image=0x7f0a0019;
+        public static final int id_item_select=0x7f0a001a;
+        public static final int id_list_dir=0x7f0a001d;
+        public static final int id_total_count=0x7f0a0003;
+        public static final int image=0x7f0a0025;
+        public static final int item_label=0x7f0a0006;
+        public static final int iv_txt=0x7f0a002a;
+        public static final int list=0x7f0a000d;
+        public static final int loading_dialog=0x7f0a0021;
+        public static final int loading_image=0x7f0a0022;
+        public static final int login_button=0x7f0a000c;
+        public static final int main=0x7f0a000e;
+        public static final int message=0x7f0a0015;
+        public static final int name=0x7f0a0026;
+        public static final int parentPanel=0x7f0a000f;
+        public static final int password=0x7f0a0027;
+        public static final int password_again=0x7f0a0028;
+        public static final int pwd_edit=0x7f0a000a;
+        public static final int pwd_layout=0x7f0a0008;
+        public static final int rb_check=0x7f0a002b;
+        public static final int register=0x7f0a000b;
+        public static final int show_pwd=0x7f0a0009;
+        public static final int stub=0x7f0a0005;
+        public static final int tip_view=0x7f0a0023;
+        public static final int title_template=0x7f0a0011;
+        public static final int topPanel=0x7f0a0010;
+        public static final int upload_picture=0x7f0a0024;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int custom_view=0x7f030001;
-        public static final int dialog_layout=0x7f030002;
-        public static final int first=0x7f030003;
-        public static final int include_top_bar=0x7f030004;
-        public static final int loading_dialog=0x7f030005;
-        public static final int main=0x7f030006;
-        public static final int register=0x7f030007;
-        public static final int visit_hy_dm_list_singleitem=0x7f030008;
+        public static final int activity_my_main=0x7f030001;
+        public static final int custom_view=0x7f030002;
+        public static final int dialog_layout=0x7f030003;
+        public static final int first=0x7f030004;
+        public static final int grid_item=0x7f030005;
+        public static final int include_top_bar=0x7f030006;
+        public static final int list_dir=0x7f030007;
+        public static final int list_dir_item=0x7f030008;
+        public static final int loading_dialog=0x7f030009;
+        public static final int main=0x7f03000a;
+        public static final int register=0x7f03000b;
+        public static final int visit_hy_dm_list_singleitem=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -152,6 +173,7 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        public static final int anim_popup_dir=0x7f080006;
         public static final int dialog_btn=0x7f080003;
         public static final int dialog_tran=0x7f080004;
         public static final int dialog_untran=0x7f080005;

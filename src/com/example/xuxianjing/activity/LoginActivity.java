@@ -28,7 +28,7 @@ public class LoginActivity extends BaseActivity {
 	
 	@Override
 	public void initWidget() {
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_my_main);
 		titleView = (TextView) findViewById(R.id.activity_title);
 		titleView.setText("登陆");
 		registerTextView = (TextView) findViewById(R.id.register);
