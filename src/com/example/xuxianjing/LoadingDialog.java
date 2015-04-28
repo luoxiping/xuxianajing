@@ -11,12 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class LoadingDialog {
-	
 	private Context context;
 	private Dialog dialog;
 	private ImageView loadingImage;
 	private TextView tipTextView;
-	
 	private Animation animation;
 
 	public LoadingDialog(Context context) {
@@ -32,9 +30,9 @@ public class LoadingDialog {
         animation = AnimationUtils.loadAnimation(context, R.anim.loading_animation);  
         
         
-        // ¡°·µ»Ø¼ü¡±¿ÉÒÔÈ¡Ïû½ø¶È¿ò
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½
         dialog.setCancelable(true);
-        // µã»÷½ø¶È¿òÍâ²»ÄÜÈ¡Ïû
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½ï¿½â²»ï¿½ï¿½È¡ï¿½ï¿½
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(layout, new LinearLayout.LayoutParams(  
                 LinearLayout.LayoutParams.MATCH_PARENT,  
