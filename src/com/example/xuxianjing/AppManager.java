@@ -12,7 +12,9 @@ public class AppManager {
 	private static Stack<BaseActivity> activityStack;
     private static AppManager instance;
  
-    private AppManager() {}
+    private AppManager() {
+    	
+    }
     
     public static AppManager getAppManager() {
         if (instance == null) {
