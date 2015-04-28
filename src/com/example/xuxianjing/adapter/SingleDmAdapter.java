@@ -1,7 +1,7 @@
 package com.example.xuxianjing.adapter;
 
 import com.example.xuxianjing.R;
-import com.example.xuxianjing.Util.ViewHolder;
+import com.example.xuxianjing.Util.MyViewHolder;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,8 +62,8 @@ public class SingleDmAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.visit_hy_dm_list_singleitem, null);
         } 
-		TextView contentTextView = ViewHolder.get(convertView, R.id.iv_txt);
-		rbCheck = ViewHolder.get(convertView, R.id.rb_check);
+		TextView contentTextView = MyViewHolder.get(convertView, R.id.iv_txt);
+		rbCheck = MyViewHolder.get(convertView, R.id.rb_check);
 		contentTextView.setText(txt[position]);
 		if (name.equals(txt[position])) {
 			rbCheck.setChecked(true);
