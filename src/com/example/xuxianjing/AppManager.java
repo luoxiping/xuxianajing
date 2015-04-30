@@ -24,9 +24,6 @@ public class AppManager {
         return instance;
     }
  
-    /**
-     * ���Activity��ջ
-     */
     public void addActivity(BaseActivity activity) {
         if (activityStack == null) {
             activityStack = new Stack<BaseActivity>();
@@ -34,9 +31,6 @@ public class AppManager {
         activityStack.add(activity);
     }
  
-    /**
-     * ��ȡ��ǰActivity��ջ��Activity��
-     */
     public BaseActivity currentActivity() {
         if (activityStack == null || activityStack.isEmpty()) {
             return null;
@@ -45,9 +39,6 @@ public class AppManager {
         return activity;
     }
  
-    /**
-     * ��ȡ��ǰActivity��ջ��Activity�� û���ҵ��򷵻�null
-     */
     public BaseActivity findActivity(Class<?> cls) {
         BaseActivity activity = null;
         for (BaseActivity aty : activityStack) {
@@ -59,17 +50,11 @@ public class AppManager {
         return activity;
     }
  
-    /**
-     * ������ǰActivity��ջ��Activity��
-     */
     public void finishActivity() {
         BaseActivity activity = activityStack.lastElement();
         finishActivity(activity);
     }
  
-    /**
-     * ����ָ����Activity(����)
-     */
     public void finishActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
@@ -78,9 +63,6 @@ public class AppManager {
         }
     }
  
-    /**
-     * ����ָ����Activity(����)
-     */
     public void finishActivity(Class<?> cls) {
         for (BaseActivity activity : activityStack) {
             if (activity.getClass().equals(cls)) {
@@ -89,11 +71,6 @@ public class AppManager {
         }
     }
  
-    /**
-     * �رճ���ָ��activity�����ȫ��activity ���cls��������ջ�У���ջȫ�����
-     * 
-     * @param cls
-     */
     public void finishOthersActivity(Class<?> cls) {
         for (BaseActivity activity : activityStack) {
             if (!(activity.getClass().equals(cls))) {
@@ -102,9 +79,6 @@ public class AppManager {
         }
     }
  
-    /**
-     * ��������Activity
-     */
     public void finishAllActivity() {
         for (int i = 0, size = activityStack.size(); i < size; i++) {
             if (null != activityStack.get(i)) {
@@ -114,9 +88,6 @@ public class AppManager {
         activityStack.clear();
     }
  
-    /**
-     * Ӧ�ó����˳�
-     */
     public void AppExit(Context context) {
         try {
             finishAllActivity();

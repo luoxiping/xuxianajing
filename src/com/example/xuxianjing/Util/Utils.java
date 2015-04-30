@@ -49,8 +49,6 @@ public class Utils {
 	public static void startActivity(Context context, Class clazz) {
 		Intent intent = new Intent();
 		intent.setClass(context, clazz);
-		// 2012-05-15 ���������activity��task���ڣ�
-		// ��Activity֮�ϵ�����Activity������.�Ӷ��������ʱ���ֲ�ѯ�����⡣
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		context.startActivity(intent);
 		// ((Activity) context).finish();
