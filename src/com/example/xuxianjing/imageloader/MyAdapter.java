@@ -5,10 +5,15 @@ import java.util.List;
 
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.CommonAdapter;
+import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.Util.ViewHolder;
+import com.example.xuxianjing.activity.MainActivity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -24,11 +29,14 @@ public class MyAdapter extends CommonAdapter<String> {
 	 * 文件夹路径
 	 */
 	private String mDirPath;
+	
+	private Activity activity;
 
-	public MyAdapter(Context context, List<String> mDatas, int itemLayoutId,
+	public MyAdapter(Activity activity, List<String> mDatas, int itemLayoutId,
 			String dirPath) {
-		super(context, mDatas, itemLayoutId);
+		super(activity, mDatas, itemLayoutId);
 		this.mDirPath = dirPath;
+		this.activity = activity;
 	}
 
 	@Override
@@ -63,7 +71,12 @@ public class MyAdapter extends CommonAdapter<String> {
 					mSelect.setImageResource(R.drawable.pictures_selected);
 					mImageView.setColorFilter(Color.parseColor("#77000000"));
 				}
-
+				Intent data = new Intent();
+				data.putExtra("imageUrl", mSelectedImage.get(0));
+				mSelectedImage.clear();
+				activity.setResult(activity.RESULT_OK, data);
+				activity.finish();
+				
 			}
 		});
 

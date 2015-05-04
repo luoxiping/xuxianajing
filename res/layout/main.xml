@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <include
+        android:id="@+id/title"
+        layout="@layout/include_top_bar" />
+    
     <Button
         android:id="@+id/upload_picture"
         android:layout_width="fill_parent"
@@ -13,7 +17,8 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
     
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.bean.ImageFloder;
 import com.example.xuxianjing.imageloader.ListImageDirPopupWindow;
 import com.example.xuxianjing.imageloader.ListImageDirPopupWindow.OnImageDirSelected;
@@ -92,7 +93,7 @@ public class ImageLocalActivity extends BaseActivity implements OnImageDirSelect
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
-		mAdapter = new MyAdapter(getApplicationContext(), mImgs,
+		mAdapter = new MyAdapter(this, mImgs,
 				R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
 		mImageCount.setText(totalCount + "张");
@@ -124,7 +125,7 @@ public class ImageLocalActivity extends BaseActivity implements OnImageDirSelect
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.activity_main);
-
+		TopBar topBar = new TopBar(this, "选择相片");
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
 		mScreenHeight = outMetrics.heightPixels;
@@ -270,7 +271,7 @@ public class ImageLocalActivity extends BaseActivity implements OnImageDirSelect
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
-		mAdapter = new MyAdapter(getApplicationContext(), mImgs,
+		mAdapter = new MyAdapter(this, mImgs,
 				R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
 		// mAdapter.notifyDataSetChanged();

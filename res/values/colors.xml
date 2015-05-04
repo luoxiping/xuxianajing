@@ -16,4 +16,8 @@
     
     <color name="btn_press_color">#1c9dd8</color>
     <color name="btn_unpress_color">#48baed</color>
+    
+    <color name="transparent">#00000000</color>
+    <color name="half_transparent">#40000000</color>
+    <color name="red">#FF0000</color>
 </resources>
