@@ -26,8 +26,9 @@
 
         <TextView
             android:id="@+id/btn_issue"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_marginRight="5dp"
             android:layout_gravity="center|right"
             android:background="@drawable/drawable_bg"
             android:gravity="center"
