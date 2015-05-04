@@ -44,8 +44,7 @@ public class TopBar {
 	}
 
 	private void initBack() {
-		findViewById(R.id.btn_back)
-		.setOnClickListener(new OnClickListener() {
+		findViewById(R.id.btn_back).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View paramView) {
 				activity.finish();

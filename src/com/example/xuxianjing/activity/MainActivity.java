@@ -22,19 +22,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import com.androidquery.AQuery;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.ProgressCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.TopBar;
+import com.example.xuxianjing.Util.TopBar.IssueListener;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.adapter.SingleDmAdapter;
 import com.example.xuxianjing.dialog.Effectstype;
 import com.example.xuxianjing.dialog.NiftyDialogBuilder;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements IssueListener {
 	private Button upLoadBtn;
 	private ImageView mImageView;
 	private Effectstype effect;
 	private NiftyDialogBuilder dialogBuilder;
+	private String name;
+	private String fileName;
 
 	@Override
 	public void initWidget() {
@@ -42,6 +49,7 @@ public class MainActivity extends BaseActivity {
 		upLoadBtn = (Button) findViewById(R.id.upload_picture);
 		mImageView = (ImageView) findViewById(R.id.image);
 		TopBar topBar = new TopBar(this, "主页");
+		topBar.setIssueListener("上传图片", this);
 		dialogBuilder = new NiftyDialogBuilder(MainActivity.this,
 				R.style.dialog_untran);
 	}
@@ -122,7 +130,7 @@ public class MainActivity extends BaseActivity {
 				MyApplication.showToast("请检查SD卡是否存在！");
 				return;
 			}
-			String name = new DateFormat().format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";	
+			name = new DateFormat().format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";	
 			MyApplication.showToast(name);
 			Bundle bundle = data.getExtras();
 			Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
@@ -130,8 +138,8 @@ public class MainActivity extends BaseActivity {
 			FileOutputStream b = null;
 			File file = new File(Environment.getExternalStorageDirectory() , "myImage");
 			file.mkdirs();// 创建文件夹
-			String fileName = Environment.getExternalStorageDirectory() + "/myImage/"+name;
-
+			fileName = Environment.getExternalStorageDirectory() + "/myImage/"+name;
+			
 			try {
 				b = new FileOutputStream(fileName);
 				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
@@ -146,6 +154,35 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 			mImageView.setImageBitmap(bitmap);
+		}
+	}
+
+	@Override
+	public void issue() {
+		loading("上传图片中...");
+		try {
+			AVFile fileAf = AVFile.withAbsoluteLocalPath(name, fileName);
+			fileAf.saveInBackground(new SaveCallback() {
+			      @Override
+			      public void done(AVException e) {
+			    	destroyLoading();  
+			        if(e!=null){
+			            //上传失败
+			        	MyApplication.showToast("上传失败！");
+			        }else{
+			            //上传成功
+			        	MyApplication.showToast("上传成功！");
+			        }
+			      }
+			  }, new ProgressCallback() {
+			      @Override
+			      public void done(Integer percentDone) {
+			          //打印进度
+//			        System.out.println("uploading: " + percentDone);
+			      }
+			       });
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 	}
 
