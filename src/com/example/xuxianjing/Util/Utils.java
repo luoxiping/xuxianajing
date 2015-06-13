@@ -4,11 +4,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.xuxianjing.AppManager;
 
 public class Utils {
+	private static long lastClickTime = System.currentTimeMillis();
+	/**
+	 * 防止控件被重复点击
+	 * 
+	 * @param distance
+	 *            间隔 默认500毫秒
+	 * @return
+	 */
+	public static boolean isFastDoubleClick(int distance) {
+		long time = System.currentTimeMillis();
+		long timeD = ((long) time - lastClickTime);
+		if (0 < timeD && timeD < (long) distance) {
+			Log.i("xdt", "++Double _timeD= " + timeD);
+			return true;
+		}
+		lastClickTime = time;
+		return false;
+	}
 	
 	public static void showMessage(String msg){
 		Toast.makeText(AppManager.getAppManager().currentActivity(), msg, Toast.LENGTH_LONG).show();
@@ -49,8 +68,6 @@ public class Utils {
 	public static void startActivity(Context context, Class clazz) {
 		Intent intent = new Intent();
 		intent.setClass(context, clazz);
-		// 2012-05-15 ���������activity��task���ڣ�
-		// ��Activity֮�ϵ�����Activity������.�Ӷ��������ʱ���ֲ�ѯ�����⡣
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		context.startActivity(intent);
 		// ((Activity) context).finish();

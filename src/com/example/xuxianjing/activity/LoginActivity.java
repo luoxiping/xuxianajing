@@ -15,10 +15,10 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 
 public class LoginActivity extends BaseActivity {
-	private TextView titleView;
 	private EditText accoutEdit;
 	private EditText pwdEdit;
 	private Button loginButton;
@@ -29,8 +29,8 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.activity_my_main);
-		titleView = (TextView) findViewById(R.id.activity_title);
-		titleView.setText("登陆");
+		TopBar topBar = new TopBar(this, "登陆");
+		findViewById(R.id.btn_back).setVisibility(View.GONE);
 		registerTextView = (TextView) findViewById(R.id.register);
 		registerTextView.setOnClickListener(this);
 		accoutEdit = (EditText) findViewById(R.id.account_edit);
