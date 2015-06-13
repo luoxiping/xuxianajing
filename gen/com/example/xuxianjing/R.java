@@ -89,7 +89,7 @@ public final class R {
     public static final class id {
         public static final int account_edit=0x7f0a0008;
         public static final int account_layout=0x7f0a0005;
-        public static final int action_settings=0x7f0a0030;
+        public static final int action_settings=0x7f0a0032;
         public static final int alertTitle=0x7f0a0014;
         public static final int btn_back=0x7f0a001d;
         public static final int btn_issue=0x7f0a001f;
@@ -98,8 +98,10 @@ public final class R {
         public static final int button2=0x7f0a0019;
         public static final int contentPanel=0x7f0a0015;
         public static final int customPanel=0x7f0a0017;
-        public static final int email=0x7f0a002d;
+        public static final int email=0x7f0a002f;
         public static final int fl_top_title=0x7f0a001c;
+        public static final int get_image=0x7f0a002b;
+        public static final int get_picture=0x7f0a002a;
         public static final int icon=0x7f0a0013;
         public static final int id_bottom_ly=0x7f0a0002;
         public static final int id_choose_dir=0x7f0a0003;
@@ -113,20 +115,20 @@ public final class R {
         public static final int id_total_count=0x7f0a0004;
         public static final int image=0x7f0a0029;
         public static final int item_label=0x7f0a0007;
-        public static final int iv_txt=0x7f0a002e;
+        public static final int iv_txt=0x7f0a0030;
         public static final int list=0x7f0a000e;
         public static final int loading_dialog=0x7f0a0025;
         public static final int loading_image=0x7f0a0026;
         public static final int login_button=0x7f0a000d;
         public static final int main=0x7f0a000f;
         public static final int message=0x7f0a0016;
-        public static final int name=0x7f0a002a;
+        public static final int name=0x7f0a002c;
         public static final int parentPanel=0x7f0a0010;
-        public static final int password=0x7f0a002b;
-        public static final int password_again=0x7f0a002c;
+        public static final int password=0x7f0a002d;
+        public static final int password_again=0x7f0a002e;
         public static final int pwd_edit=0x7f0a000b;
         public static final int pwd_layout=0x7f0a0009;
-        public static final int rb_check=0x7f0a002f;
+        public static final int rb_check=0x7f0a0031;
         public static final int register=0x7f0a000c;
         public static final int show_pwd=0x7f0a000a;
         public static final int stub=0x7f0a0006;

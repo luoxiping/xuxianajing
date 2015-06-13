@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import android.widget.ListView;
 import com.androidquery.AQuery;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.ProgressCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.xuxianjing.MyApplication;
@@ -37,7 +37,9 @@ import com.example.xuxianjing.dialog.NiftyDialogBuilder;
 
 public class MainActivity extends BaseActivity implements IssueListener {
 	private Button upLoadBtn;
+	private Button getImageBtn;
 	private ImageView mImageView;
+	private ImageView getImageView;
 	private Effectstype effect;
 	private NiftyDialogBuilder dialogBuilder;
 	private String name;
@@ -111,10 +113,19 @@ public class MainActivity extends BaseActivity implements IssueListener {
 				}
 			});
 			break;
+		case R.id.get_picture:
+			getRemoteImage();
+			break;
 
 		default:
 			break;
 		}
+	}
+
+	private void getRemoteImage() {
+		AVObject avObject = new AVObject();
+		AVFile avFile = avObject.getAVFile("applicatFile");
+//		avFile.getThumbnailUrl(scaleToFit, width, height)
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.example.xuxianjing.activity;
 
+import org.simple.eventbus.Subscriber;
+
 import com.example.xuxianjing.AppManager;
 import com.example.xuxianjing.LoadingDialog;
 
@@ -92,4 +94,9 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		}
     	dialog.cancel();
     }
+    
+    @Subscriber(tag = "csuicide")  
+    private void csuicideMyself(String msg) {  
+        finish();  
+    } 
 }
