@@ -1,9 +1,7 @@
 package com.example.xuxianjing;
 
 import java.util.Stack;
-
 import com.example.xuxianjing.activity.BaseActivity;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
