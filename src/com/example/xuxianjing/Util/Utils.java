@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.example.xuxianjing.AppManager;
 
 public class Utils {
 	private static long lastClickTime = System.currentTimeMillis();
@@ -27,10 +24,6 @@ public class Utils {
 		}
 		lastClickTime = time;
 		return false;
-	}
-	
-	public static void showMessage(String msg){
-		Toast.makeText(AppManager.getAppManager().currentActivity(), msg, Toast.LENGTH_LONG).show();
 	}
 	
 	/**

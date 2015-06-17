@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
+import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
@@ -63,7 +64,7 @@ public class LoginActivity extends BaseActivity {
 							Utils.startActivity(LoginActivity.this, MainActivity.class);
 							finish();
 				        } else {
-				        	Utils.showMessage("登陆失败");
+				        	MyApplication.showToast("登陆失败");
 				        }
 					}
 				   

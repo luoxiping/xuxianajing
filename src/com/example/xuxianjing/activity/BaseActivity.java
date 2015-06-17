@@ -1,18 +1,15 @@
 package com.example.xuxianjing.activity;
 
 import org.simple.eventbus.Subscriber;
-
-import com.example.xuxianjing.AppManager;
 import com.example.xuxianjing.LoadingDialog;
-
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 
-public abstract class BaseActivity extends Activity implements OnClickListener {
+public abstract class BaseActivity extends FragmentActivity implements OnClickListener {
 	private static final int ACTIVITY_RESUME = 0;
     private static final int ACTIVITY_STOP = 1;
     private static final int ACTIVITY_PAUSE = 2;
@@ -43,7 +40,6 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
         if (mAllowFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
-        AppManager.getAppManager().addActivity(this);
         initWidget();
     }
  
@@ -79,7 +75,6 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         activityState = ACTIVITY_DESTROY;
-        AppManager.getAppManager().finishActivity(this);
     }
     
     public void loading(String msg){
@@ -99,5 +94,6 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
     @Subscriber(tag = "csuicide")  
     private void csuicideMyself(String msg) {  
         finish();  
-    } 
+    }
+ 
 }

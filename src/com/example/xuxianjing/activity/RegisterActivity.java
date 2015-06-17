@@ -3,6 +3,7 @@ package com.example.xuxianjing.activity;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
+import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.Utils;
 import android.text.TextUtils;
@@ -47,22 +48,22 @@ public class RegisterActivity extends BaseActivity {
 				.trim();
 		String email = emailEditText.getText().toString().trim();
 		if (TextUtils.isEmpty(name)) {
-			Utils.showMessage("ÕË»§²»ÄÜÎª¿Õ");
+			MyApplication.showToast("è¯·å¡«å†™å§“å");
 			return;
 		}
 		if (TextUtils.isEmpty(password)) {
-			Utils.showMessage("ÃÜÂë²»ÄÜÎª¿Õ");
+			MyApplication.showToast("è¯·å¡«å†™å¯†ç ");
 			return;
 		}
 		if (TextUtils.isEmpty(passwordAgain)) {
-			Utils.showMessage("ÇëÔÙÒ»´ÎÊäÈëÃÜÂë");
+			MyApplication.showToast("è¯·å†æ¬¡å¡«å†™å¯†ç ");
 			return;
 		}
 		if (!password.equals(passwordAgain)) {
-			Utils.showMessage("ÃÜÂë²»Ò»ÖÂ");
+			MyApplication.showToast("å¯†ç ä¸ä¸€è‡´");
 			return;
 		}
-		loading("ÕıÔÚ×¢²á");
+		loading("ç™»å½•ä¸­......");
 		AVUser user = new AVUser();
 		user.setUsername(name);
 		user.setPassword(password);
@@ -71,12 +72,12 @@ public class RegisterActivity extends BaseActivity {
 			public void done(AVException e) {
 				destroyLoading();
 				if (e == null) {
-					Utils.showMessage("×¢²á³É¹¦");
+					MyApplication.showToast("ç™»å½•æˆåŠŸ");
 					Utils.startActivity(RegisterActivity.this,
 							LoginActivity.class);
 					finish();
 				} else {
-					Utils.showMessage("×¢²áÊ§°Ü");
+					MyApplication.showToast("ç™»å½•å¤±è´¥");
 				}
 			}
 		});
