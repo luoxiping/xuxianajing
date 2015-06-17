@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 
-public abstract class BaseActivity extends FragmentActivity implements OnClickListener {
+public abstract class BaseActivity extends Activity implements OnClickListener {
 	private static final int ACTIVITY_RESUME = 0;
     private static final int ACTIVITY_STOP = 1;
     private static final int ACTIVITY_PAUSE = 2;
@@ -37,7 +37,6 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //确定为竖屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         if (mAllowFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }

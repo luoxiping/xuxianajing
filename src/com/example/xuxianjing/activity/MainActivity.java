@@ -46,8 +46,7 @@ public class MainActivity extends BaseActivity implements IssueListener {
 		mImageView = (ImageView) findViewById(R.id.image);
 		TopBar topBar = new TopBar(this, "主页");
 		topBar.setIssueListener("上传图片", this);
-		dialogBuilder = new NiftyDialogBuilder(MainActivity.this,
-				R.style.dialog_untran);
+		dialogBuilder = new NiftyDialogBuilder(this, R.style.dialog_untran);
 	}
 
 	@Override

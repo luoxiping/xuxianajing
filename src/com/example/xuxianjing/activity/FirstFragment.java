@@ -31,7 +31,7 @@ public class FirstFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_first, container, false);
 		TextView textView = (TextView) view.findViewById(R.id.text);
-		textView.setText("第二页");
+		textView.setText("第一页");
 		log.e("XX", "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 		return view;
 	}
