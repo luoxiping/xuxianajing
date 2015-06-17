@@ -38,6 +38,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //确定为竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         if (mAllowFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);

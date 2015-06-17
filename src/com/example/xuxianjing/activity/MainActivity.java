@@ -60,58 +60,60 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	public void widgetClick(View v) {
 		switch (v.getId()) {
 		case R.id.upload_picture:
-			final String[] txts = new String[] { "本地相册", "相机拍照" };
-			View view2 = LayoutInflater.from(MainActivity.this).inflate(
-					R.layout.custom_view, null);
-			effect = Effectstype.Slideleft;
-			String defaultStr = "你好";
-
-			dialogBuilder
-					.withTitle("标题")
-					// .withTitle(null) no title
-					.withTitleColor("#000000")
-					// def
-					// .withDividerColor("#11000000")
-					// def
-					.withMessage(null)
-					// .withMessage(null) no Msg
-					.withMessageColor("#000000")
-					// def
-					.withIcon(
-							getResources().getDrawable(R.drawable.ic_launcher))
-					.isCancelableOnTouchOutside(true) // def |
-														// isCancelable(true)
-					.withDuration(700) // def
-					.withEffect(effect) // def Effectstype.Slidetop
-					.setCustomView(view2, this).show();
-
-			ListView listView = (ListView) view2.findViewById(R.id.list);
-			final SingleDmAdapter singleBaseAdapter = new SingleDmAdapter(this,
-					txts, defaultStr);
-			listView.setAdapter(singleBaseAdapter);
-			listView.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parentView, View view,
-						int position, long id) {
-					// singleBaseAdapter.setName(txts[position]);
-					// singleBaseAdapter.notifyDataSetChanged();
-					switch (position) {
-					case 0:
-						Utils.startActivityForResult(MainActivity.this,
-								ImageLocalActivity.class, 0x11);
-						break;
-					case 1:
-						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
-						startActivityForResult(intent, 0x12);
-						break;
-
-					default:
-						break;
-					}
-					dialogBuilder.dismiss();
-				}
-			});
+			Utils.startActivity(this, FirstActivity.class);
+			
+//			final String[] txts = new String[] { "本地相册", "相机拍照" };
+//			View view2 = LayoutInflater.from(MainActivity.this).inflate(
+//					R.layout.custom_view, null);
+//			effect = Effectstype.Slideleft;
+//			String defaultStr = "你好";
+//
+//			dialogBuilder
+//					.withTitle("标题")
+//					// .withTitle(null) no title
+//					.withTitleColor("#000000")
+//					// def
+//					// .withDividerColor("#11000000")
+//					// def
+//					.withMessage(null)
+//					// .withMessage(null) no Msg
+//					.withMessageColor("#000000")
+//					// def
+//					.withIcon(
+//							getResources().getDrawable(R.drawable.ic_launcher))
+//					.isCancelableOnTouchOutside(true) // def |
+//														// isCancelable(true)
+//					.withDuration(700) // def
+//					.withEffect(effect) // def Effectstype.Slidetop
+//					.setCustomView(view2, this).show();
+//
+//			ListView listView = (ListView) view2.findViewById(R.id.list);
+//			final SingleDmAdapter singleBaseAdapter = new SingleDmAdapter(this,
+//					txts, defaultStr);
+//			listView.setAdapter(singleBaseAdapter);
+//			listView.setOnItemClickListener(new OnItemClickListener() {
+//
+//				@Override
+//				public void onItemClick(AdapterView<?> parentView, View view,
+//						int position, long id) {
+//					// singleBaseAdapter.setName(txts[position]);
+//					// singleBaseAdapter.notifyDataSetChanged();
+//					switch (position) {
+//					case 0:
+//						Utils.startActivityForResult(MainActivity.this,
+//								ImageLocalActivity.class, 0x11);
+//						break;
+//					case 1:
+//						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+//						startActivityForResult(intent, 0x12);
+//						break;
+//
+//					default:
+//						break;
+//					}
+//					dialogBuilder.dismiss();
+//				}
+//			});
 			break;
 		case R.id.get_picture:
 			getRemoteImage();
