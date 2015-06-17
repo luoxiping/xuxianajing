@@ -1,10 +1,7 @@
 package com.example.xuxianjing.fragment;
 
-import java.lang.reflect.Field;
-
 import com.avos.avoscloud.LogUtil.log;
 import com.example.xuxianjing.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
