@@ -36,6 +36,7 @@
         <activity android:name="com.example.xuxianjing.activity.RegisterActivity" ></activity>
         <activity android:name="com.example.xuxianjing.activity.MainActivity"></activity>
         <activity android:name="com.example.xuxianjing.activity.ImageLocalActivity"></activity>
+        <activity android:name="com.example.xuxianjing.activity.FvMainActivity"></activity>
     </application>
 
 </manifest>

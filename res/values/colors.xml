@@ -8,8 +8,7 @@
     <color name="light_gray">#eeeeee</color>
     <color name="grey_line">#cecece</color>
     <color name="blue">#3A5FCD</color>
-    
-    <color name="text_color1">#FFFFFF</color>
+
     <color name="divider_color">#11000000</color>
     <color name="msg_color">#FFFFFFFF</color>
     <color name="dialog_bg">#ffe74c3c</color>
