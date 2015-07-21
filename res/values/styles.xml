@@ -79,5 +79,12 @@
         <item name="android:textColor">@drawable/main_tab_text_color</item>
         <item name="android:drawableTop">@drawable/main_tab_icon_game</item>
     </style>
+    
+    <style name="MyAlertDialog" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
 </resources>

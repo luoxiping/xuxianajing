@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -45,12 +48,28 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	private NiftyDialogBuilder dialogBuilder;
 	private String name;
 	private String fileName;
+	private String imagePath;
 
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.main);
 		upLoadBtn = (Button) findViewById(R.id.upload_picture);
 		mImageView = (ImageView) findViewById(R.id.image);
+		mImageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				final Dialog mDialog = new Dialog(MainActivity.this, R.style.MyAlertDialog);
+				View view2 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_image, null);
+				mDialog.setCancelable(true);
+				mDialog.setContentView(view2);
+				mDialog.show();
+				
+				ImageView mImageView = (ImageView) view2.findViewById(R.id.imageview);
+				AQuery aq = new AQuery(mImageView);
+				aq.image(imagePath, true, true, 200, R.drawable.ic_launcher);
+			}
+		});
 		TopBar topBar = new TopBar(this, "主页");
 		topBar.setIssueListener("上传图片", this);
 		dialogBuilder = new NiftyDialogBuilder(this, R.style.dialog_untran);
@@ -133,10 +152,10 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 0x11 && resultCode == RESULT_OK) {
-			String url = data.getStringExtra("imageUrl");
-			Log.e("图片地址：", url);
+			imagePath = data.getStringExtra("imageUrl");
+			Log.i("图片地址：", imagePath);
 			AQuery aq = new AQuery(mImageView);
-			aq.image(url, true, true, 200, R.drawable.ic_launcher);
+			aq.image(imagePath, true, true, 200, R.drawable.ic_launcher);
 		} else if(requestCode == 0x12 && resultCode == RESULT_OK) {
 			String sdStatus = Environment.getExternalStorageState();
 			if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
