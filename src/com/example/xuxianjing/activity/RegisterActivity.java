@@ -5,6 +5,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,27 +13,24 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class RegisterActivity extends BaseActivity {
-	private EditText nameEditText;
+	private EditText phoneEditText;
 	private EditText passwordEditText;
-	private EditText passwordAgainEditText;
-	private EditText emailEditText;
 	private Button registerBtn;
 
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.register);
-		nameEditText = (EditText) findViewById(R.id.name);
-		passwordEditText = (EditText) findViewById(R.id.password);
-		passwordAgainEditText = (EditText) findViewById(R.id.password_again);
-		emailEditText = (EditText) findViewById(R.id.email);
-		registerBtn = (Button) findViewById(R.id.register);
+		TopBar topBar = new TopBar(this, "注册");
+		phoneEditText = (EditText) findViewById(R.id.phone_edit);
+		passwordEditText = (EditText) findViewById(R.id.pwd_edit);
+		registerBtn = (Button) findViewById(R.id.register_button);
 		registerBtn.setOnClickListener(this);
 	}
 
 	@Override
 	public void widgetClick(View v) {
 		switch (v.getId()) {
-		case R.id.register:
+		case R.id.register_button:
 			register();
 			break;
 
@@ -42,12 +40,10 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	private void register() {
-		String name = nameEditText.getText().toString().trim();
+		String phone = phoneEditText.getText().toString().trim();
 		String password = passwordEditText.getText().toString().trim();
-		String passwordAgain = passwordAgainEditText.getText().toString()
-				.trim();
-		String email = emailEditText.getText().toString().trim();
-		if (TextUtils.isEmpty(name)) {
+		
+		if (TextUtils.isEmpty(phone)) {
 			MyApplication.showToast("请填写姓名");
 			return;
 		}
@@ -55,19 +51,11 @@ public class RegisterActivity extends BaseActivity {
 			MyApplication.showToast("请填写密码");
 			return;
 		}
-		if (TextUtils.isEmpty(passwordAgain)) {
-			MyApplication.showToast("请再次填写密码");
-			return;
-		}
-		if (!password.equals(passwordAgain)) {
-			MyApplication.showToast("密码不一致");
-			return;
-		}
+		
 		loading("登录中......");
 		AVUser user = new AVUser();
-		user.setUsername(name);
+		user.setUsername(phone);
 		user.setPassword(password);
-		user.setEmail(email);
 		user.signUpInBackground(new SignUpCallback() {
 			public void done(AVException e) {
 				destroyLoading();
