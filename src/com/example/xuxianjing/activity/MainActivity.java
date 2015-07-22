@@ -38,6 +38,7 @@ import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.adapter.SingleDmAdapter;
 import com.example.xuxianjing.dialog.Effectstype;
 import com.example.xuxianjing.dialog.NiftyDialogBuilder;
+import com.example.xuxianjing.view.library.PhotoView;
 
 public class MainActivity extends BaseActivity implements IssueListener {
 	private Button upLoadBtn;
@@ -65,7 +66,7 @@ public class MainActivity extends BaseActivity implements IssueListener {
 				mDialog.setContentView(view2);
 				mDialog.show();
 				
-				ImageView mImageView = (ImageView) view2.findViewById(R.id.imageview);
+				PhotoView mImageView = (PhotoView) view2.findViewById(R.id.imageview);
 				AQuery aq = new AQuery(mImageView);
 				aq.image(imagePath, true, true, 200, R.drawable.ic_launcher);
 			}
