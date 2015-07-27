@@ -22,7 +22,7 @@
         android:name="com.example.xuxianjing.MyApplication"
         android:icon="@drawable/xuxianjing"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar"  >
+        android:theme="@android:style/Theme.Light.NoTitleBar"  >
         <activity
             android:name="com.example.xuxianjing.activity.LoginActivity"
             android:label="@string/app_name" >
@@ -37,6 +37,8 @@
         <activity android:name="com.example.xuxianjing.activity.MainActivity"></activity>
         <activity android:name="com.example.xuxianjing.activity.ImageLocalActivity"></activity>
         <activity android:name="com.example.xuxianjing.activity.FvMainActivity"></activity>
+        <activity android:name="com.example.xuxianjing.activity.ImageActivity"
+            	  android:theme="@style/translucent" ></activity>
     </application>
 
 </manifest>

@@ -60,15 +60,19 @@ public class MainActivity extends BaseActivity implements IssueListener {
 			
 			@Override
 			public void onClick(View view) {
-				final Dialog mDialog = new Dialog(MainActivity.this, R.style.MyAlertDialog);
-				View view2 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_image, null);
-				mDialog.setCancelable(true);
-				mDialog.setContentView(view2);
-				mDialog.show();
-				
-				PhotoView mImageView = (PhotoView) view2.findViewById(R.id.imageview);
-				AQuery aq = new AQuery(mImageView);
-				aq.image(imagePath, true, true, 200, R.drawable.ic_launcher);
+//				final Dialog mDialog = new Dialog(MainActivity.this, R.style.MyAlertDialog);
+//				View view2 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_image, null);
+//				mDialog.setCancelable(true);
+//				mDialog.setContentView(view2);
+//				mDialog.show();
+//				
+//				PhotoView mImageView = (PhotoView) view2.findViewById(R.id.imageview);
+//				AQuery aq = new AQuery(mImageView);
+//				aq.image(imagePath, true, true, 200, R.drawable.ic_launcher);
+				Bundle data = new Bundle();
+				data.putString("imagePath", imagePath);
+				Utils.startActivity(MainActivity.this, ImageActivity.class, data);
+				overridePendingTransition(R.anim.fade_in, R.anim.a_to_b_of_out_1);
 			}
 		});
 		TopBar topBar = new TopBar(this, "主页");
