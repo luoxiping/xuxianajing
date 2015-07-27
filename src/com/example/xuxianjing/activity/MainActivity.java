@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	private Button getImageBtn;
 	private ImageView mImageView;
 	private ImageView getImageView;
+	private ImageView setImageView;
 	private Effectstype effect;
 	private NiftyDialogBuilder dialogBuilder;
 	private String name;
@@ -55,6 +56,8 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.main);
+		setImageView = (ImageView) findViewById(R.id.setting_imageview);
+		setImageView.setVisibility(View.VISIBLE);
 		upLoadBtn = (Button) findViewById(R.id.upload_picture);
 		mImageView = (ImageView) findViewById(R.id.image);
 		getImageView = (ImageView) findViewById(R.id.get_image);
@@ -78,7 +81,6 @@ public class MainActivity extends BaseActivity implements IssueListener {
 			}
 		});
 		TopBar topBar = new TopBar(this, "主页");
-		topBar.setIssueListener("上传图片", this);
 		dialogBuilder = new NiftyDialogBuilder(this, R.style.dialog_untran);
 	}
 
@@ -143,6 +145,10 @@ public class MainActivity extends BaseActivity implements IssueListener {
 			break;
 		case R.id.get_picture:
 			getRemoteImage();
+			break;
+			
+		case R.id.setting_imageview:
+			Utils.startActivity(MainActivity.this, SettingActivity.class);
 			break;
 
 		default:

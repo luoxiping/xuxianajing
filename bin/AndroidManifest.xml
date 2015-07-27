@@ -39,6 +39,7 @@
         <activity android:name="com.example.xuxianjing.activity.FvMainActivity"></activity>
         <activity android:name="com.example.xuxianjing.activity.ImageActivity"
             	  android:theme="@style/translucent" ></activity>
+        <activity android:name="com.example.xuxianjing.activity.SettingActivity" ></activity>
     </application>
 
 </manifest>

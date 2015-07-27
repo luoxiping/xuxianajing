@@ -16,6 +16,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 
@@ -42,11 +43,19 @@ public class LoginActivity extends BaseActivity {
 		showPwd = (ImageView) findViewById(R.id.show_pwd);
 		showPwd.setOnClickListener(this);
 		
-		AVUser currentUser = AVUser.getCurrentUser();
-		if (currentUser != null) {
+//		AVUser currentUser = AVUser.getCurrentUser();
+//		if (currentUser != null) {
+//			Utils.startActivity(LoginActivity.this, MainActivity.class);
+//			finish();
+//		} 
+		
+		if (SharePreferenceUtil.getInstance(getApplicationContext()).getString("token", null) != null) {
 			Utils.startActivity(LoginActivity.this, MainActivity.class);
 			finish();
-		} 
+		}
+		if (SharePreferenceUtil.getInstance(getApplicationContext()).getString("phone", null) != null) {
+			accoutEdit.setText(SharePreferenceUtil.getInstance(getApplicationContext()).getString("phone", null));
+		}
 	}
 
 	@Override
@@ -61,6 +70,9 @@ public class LoginActivity extends BaseActivity {
 					public void done(AVUser user, AVException e) {
 						destroyLoading();
 						if (user != null) {
+							SharePreferenceUtil.getInstance(getApplicationContext()).setString("token", user.getSessionToken());
+							SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone", user.getUsername());
+							SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
 							Utils.startActivity(LoginActivity.this, MainActivity.class);
 							finish();
 				        } else {
@@ -84,7 +96,7 @@ public class LoginActivity extends BaseActivity {
 	 */
 	public boolean handleLoginInput(String accout, String pwd) {
 		if (TextUtils.isEmpty(accout)) {
-			Toast.makeText(this, "请输入账号", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG).show();
 			return false;
 		}
 		
