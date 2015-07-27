@@ -50,12 +50,14 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	private String name;
 	private String fileName;
 	private String imagePath;
+	private AVFile fileAf;
 
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.main);
 		upLoadBtn = (Button) findViewById(R.id.upload_picture);
 		mImageView = (ImageView) findViewById(R.id.image);
+		getImageView = (ImageView) findViewById(R.id.get_image);
 		mImageView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -125,10 +127,10 @@ public class MainActivity extends BaseActivity implements IssueListener {
 					switch (position) {
 					case 0:
 						Utils.startActivityForResult(MainActivity.this,
-								ImageLocalActivity.class, 0x11);
+								ImageLocalActivity.class, 0x11);  //本地相册
 						break;
 					case 1:
-						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  //相机拍照
 						startActivityForResult(intent, 0x12);
 						break;
 
@@ -149,16 +151,18 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	}
 
 	private void getRemoteImage() {
-		AVObject avObject = new AVObject();
-		AVFile avFile = avObject.getAVFile("applicatFile");
-//		avFile.getThumbnailUrl(scaleToFit, width, height)
+		String url = fileAf.getUrl();
+		AQuery aq = new AQuery(getImageView);
+		aq.image(url, true, true, 200, R.drawable.ic_launcher);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 0x11 && resultCode == RESULT_OK) {
 			imagePath = data.getStringExtra("imageUrl");
-			Log.i("图片地址：", imagePath);
+			fileName = imagePath;
+			String[] names = fileName.split("/");
+			name = names[names.length - 1];
 			AQuery aq = new AQuery(mImageView);
 			aq.image(imagePath, true, true, 200, R.drawable.ic_launcher);
 		} else if(requestCode == 0x12 && resultCode == RESULT_OK) {
@@ -176,7 +180,7 @@ public class MainActivity extends BaseActivity implements IssueListener {
 			File file = new File(Environment.getExternalStorageDirectory() , "myImage");
 			file.mkdirs();// 创建文件夹
 			fileName = Environment.getExternalStorageDirectory() + "/myImage/"+name;
-			
+			imagePath = fileName;
 			try {
 				b = new FileOutputStream(fileName);
 				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
@@ -198,7 +202,7 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	public void issue() {
 		loading("上传图片中...");
 		try {
-			AVFile fileAf = AVFile.withAbsoluteLocalPath(name, fileName);
+			fileAf = AVFile.withAbsoluteLocalPath(name, fileName);
 			fileAf.saveInBackground(new SaveCallback() {
 			      @Override
 			      public void done(AVException e) {
