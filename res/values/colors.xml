@@ -24,4 +24,5 @@
     <color name="half_transparent">#40000000</color>
     <color name="red">#FF0000</color>
     <color name="translucent_background">#CC000000</color>
+    <color name="blue_text">#399cd7</color>
 </resources>

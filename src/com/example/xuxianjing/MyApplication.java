@@ -17,5 +17,9 @@ public class MyApplication extends Application {
 	public static void showToast(String msg){
 		Toast.makeText(mContext, msg, 1000).show();
 	}
+	
+	public static void showToast(int resId){
+		Toast.makeText(mContext, mContext.getString(resId), 1000).show();
+	}
 
 }
