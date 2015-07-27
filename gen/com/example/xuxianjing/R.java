@@ -20,6 +20,7 @@ public final class R {
     public static final class color {
         public static final int black=0x7f050008;
         public static final int blue=0x7f050007;
+        public static final int blue_text=0x7f050015;
         public static final int btn_blue_normal=0x7f05000a;
         public static final int btn_blue_pressed=0x7f05000b;
         public static final int btn_orange_normal=0x7f050002;
@@ -111,10 +112,10 @@ public final class R {
     public static final class id {
         public static final int account_edit=0x7f0a000b;
         public static final int account_layout=0x7f0a0008;
-        public static final int action_settings=0x7f0a004b;
+        public static final int action_settings=0x7f0a0051;
         public static final int alertTitle=0x7f0a0018;
-        public static final int auth_code_edit=0x7f0a0044;
-        public static final int auth_code_text_layout=0x7f0a0042;
+        public static final int auth_code_edit=0x7f0a004b;
+        public static final int auth_code_text_layout=0x7f0a0049;
         public static final int back=0x7f0a0028;
         public static final int big_window_layout=0x7f0a0026;
         public static final int btn_back=0x7f0a002f;
@@ -127,7 +128,7 @@ public final class R {
         public static final int customPanel=0x7f0a001b;
         public static final int fl_top_title=0x7f0a002e;
         public static final int fragmentContainer=0x7f0a0000;
-        public static final int get_auth_code_button=0x7f0a0043;
+        public static final int get_auth_code_button=0x7f0a004a;
         public static final int get_image=0x7f0a003f;
         public static final int get_picture=0x7f0a003e;
         public static final int icon=0x7f0a0017;
@@ -144,7 +145,9 @@ public final class R {
         public static final int image=0x7f0a003d;
         public static final int imageview=0x7f0a0003;
         public static final int item_label=0x7f0a000a;
-        public static final int iv_txt=0x7f0a0049;
+        public static final int item_mobile=0x7f0a0047;
+        public static final int item_user_name=0x7f0a0042;
+        public static final int iv_txt=0x7f0a004f;
         public static final int launcher_img=0x7f0a0034;
         public static final int line=0x7f0a0020;
         public static final int list=0x7f0a0012;
@@ -154,22 +157,22 @@ public final class R {
         public static final int login_button=0x7f0a0010;
         public static final int main=0x7f0a0013;
         public static final int message=0x7f0a001a;
-        public static final int mobile_text_layout=0x7f0a0040;
+        public static final int mobile_text_layout=0x7f0a0046;
         public static final int parentPanel=0x7f0a0014;
         public static final int percent=0x7f0a002a;
-        public static final int phone_edit=0x7f0a0041;
-        public static final int protocal_button=0x7f0a0047;
-        public static final int protocal_checkbox=0x7f0a0046;
+        public static final int phone_edit=0x7f0a0048;
+        public static final int protocal_button=0x7f0a004d;
+        public static final int protocal_checkbox=0x7f0a004c;
         public static final int pwd_edit=0x7f0a000e;
         public static final int pwd_layout=0x7f0a000c;
-        public static final int pwd_text_layout=0x7f0a0045;
+        public static final int pwd_text_layout=0x7f0a0044;
         public static final int radio_center=0x7f0a0024;
         public static final int radio_group=0x7f0a0021;
         public static final int radio_my_game=0x7f0a0022;
         public static final int radio_trade=0x7f0a0023;
-        public static final int rb_check=0x7f0a004a;
+        public static final int rb_check=0x7f0a0050;
         public static final int register=0x7f0a000f;
-        public static final int register_button=0x7f0a0048;
+        public static final int register_button=0x7f0a004e;
         public static final int rl_image=0x7f0a0002;
         public static final int rocket_img=0x7f0a002b;
         public static final int setting_imageview=0x7f0a0033;
@@ -177,6 +180,8 @@ public final class R {
         public static final int small_window_layout=0x7f0a0029;
         public static final int start_float_window=0x7f0a0025;
         public static final int stub=0x7f0a0009;
+        public static final int stub1=0x7f0a0041;
+        public static final int stub2=0x7f0a0045;
         public static final int text=0x7f0a001e;
         public static final int tip_view=0x7f0a003b;
         public static final int title=0x7f0a0001;
@@ -184,6 +189,8 @@ public final class R {
         public static final int topPanel=0x7f0a0015;
         public static final int top_title=0x7f0a0030;
         public static final int upload_picture=0x7f0a003c;
+        public static final int user_edit=0x7f0a0043;
+        public static final int username_text_layout=0x7f0a0040;
         public static final int view_page=0x7f0a001f;
     }
     public static final class layout {
@@ -218,8 +225,10 @@ public final class R {
         public static final int action_settings=0x7f070001;
         public static final int app_name=0x7f070000;
         public static final int hello_world=0x7f070002;
+        public static final int hint_input_mobile=0x7f070005;
         public static final int register_text=0x7f070004;
         public static final int service_protocal=0x7f070003;
+        public static final int tip_error_account_format=0x7f070006;
     }
     public static final class style {
         /** 

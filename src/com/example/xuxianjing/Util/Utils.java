@@ -1,5 +1,8 @@
 package com.example.xuxianjing.Util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -83,5 +86,20 @@ public class Utils {
 
 		context.startActivity(intent);
 		// ((Activity) context).finish();
+	}
+	
+	/**
+	 * 手机号验证
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public static boolean valiPhoneNumber(String num) {
+//		String regex = "^((13[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\\d{8}$";
+		String regex = "\\d{11}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(num);
+
+		return matcher.matches();
 	}
 }

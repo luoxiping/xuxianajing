@@ -60,6 +60,7 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	public void widgetClick(View v) {
+		loading("正在登录中...");
 		if (v.getId() == R.id.login_button) {
 			final String accout = accoutEdit.getText().toString();
 			final String password = pwdEdit.getText().toString();

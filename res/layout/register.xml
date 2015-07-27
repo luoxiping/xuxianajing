@@ -8,6 +8,98 @@
     <include layout="@layout/include_top_bar" />
     
     <RelativeLayout
+        android:id="@+id/username_text_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/layout_button_selector"
+        android:gravity="center_vertical" >
+
+        <View
+            android:id="@+id/stub1"
+            android:layout_width="@dimen/settings_stub_item_width"
+            android:layout_height="@dimen/settings_stub_item_height" />
+
+        <TextView
+            android:id="@+id/item_user_name"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/stub1"
+            android:gravity="center_vertical|right"
+            android:text="用户名"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/user_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@id/item_user_name"
+            android:background="@null"
+            android:hint="请输入用户名"
+            android:singleLine="true"
+            android:textColor="#555555"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/stub1"
+            android:layout_toRightOf="@id/stub1"
+            android:background="@color/grey_line" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/pwd_text_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_button_selector"
+        android:gravity="center_vertical" >
+
+        <View
+            android:id="@+id/stub2"
+            android:layout_width="@dimen/settings_stub_item_width"
+            android:layout_height="@dimen/settings_stub_item_height" />
+
+        <TextView
+            android:id="@+id/item_label"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/stub2"
+            android:gravity="center_vertical|right"
+            android:text="密码"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/pwd_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@id/item_label"
+            android:background="@null"
+            android:hint="请输入密码"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textColor="#555555"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/stub2"
+            android:layout_toRightOf="@id/stub2"
+            android:background="@color/grey_line" />
+    </RelativeLayout>
+    
+    <RelativeLayout
         android:id="@+id/mobile_text_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -21,7 +113,7 @@
             android:layout_height="@dimen/settings_stub_item_height" />
 
         <TextView
-            android:id="@+id/item_label"
+            android:id="@+id/item_mobile"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -38,7 +130,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_toRightOf="@id/item_label"
+            android:layout_toRightOf="@id/item_mobile"
             android:background="@null"
             android:hint="输入手机号"
             android:inputType="phone"
@@ -105,62 +197,7 @@
             android:textColor="#555555"
             android:textSize="16sp" />
     </RelativeLayout>
-    
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/grey_line" />
 
-    <RelativeLayout
-        android:id="@+id/pwd_text_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_button_selector"
-        android:gravity="center_vertical" >
-
-        <View
-            android:id="@id/stub"
-            android:layout_width="@dimen/settings_stub_item_width"
-            android:layout_height="@dimen/settings_stub_item_height" />
-
-        <TextView
-            android:id="@id/item_label"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/stub"
-            android:gravity="center_vertical|right"
-            android:text="设置密码"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/show_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingRight="15dp"
-            android:src="@drawable/password_invisible"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/pwd_edit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@id/show_pwd"
-            android:layout_toRightOf="@id/item_label"
-            android:background="@null"
-            android:hint="6-16字符，区分大小写"
-            android:inputType="textWebPassword"
-            android:singleLine="true"
-            android:textColor="#555555"
-            android:textSize="16sp" />
-    </RelativeLayout>
-    
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
