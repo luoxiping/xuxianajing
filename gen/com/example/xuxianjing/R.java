@@ -226,9 +226,11 @@ public final class R {
         public static final int app_name=0x7f070000;
         public static final int hello_world=0x7f070002;
         public static final int hint_input_mobile=0x7f070005;
+        public static final int hint_input_pwd=0x7f070007;
+        public static final int hint_input_username=0x7f070006;
         public static final int register_text=0x7f070004;
         public static final int service_protocal=0x7f070003;
-        public static final int tip_error_account_format=0x7f070006;
+        public static final int tip_error_account_format=0x7f070008;
     }
     public static final class style {
         /** 

@@ -7,6 +7,8 @@
     <string name="service_protocal">《8868交易平台服务条款》</string>
     <string name="register_text">同意以上协议，马上注册</string>
     <string name="hint_input_mobile">请输入您的手机号</string>
+    <string name="hint_input_username">请输入您的用户名</string>
+    <string name="hint_input_pwd">请输入您的密码</string>
     <string name="tip_error_account_format">手机号格式错误</string>
 
 </resources>

@@ -45,7 +45,17 @@ public class RegisterActivity extends BaseActivity {
 			register();
 			break;
 		case R.id.get_auth_code_button:
-			final String mobile = phoneEditText.getText().toString();
+			final String mobile = phoneEditText.getText().toString().trim();
+			final String username = userNameEditText.getText().toString().trim();
+			final String pwd = passwordEditText.getText().toString().trim();
+			if (TextUtils.isEmpty(username)) {
+				MyApplication.showToast(R.string.hint_input_username);
+				return;
+			}
+			if (TextUtils.isEmpty(pwd)) {
+				MyApplication.showToast(R.string.hint_input_pwd);
+				return;
+			}
 			if (TextUtils.isEmpty(mobile)) {
 				MyApplication.showToast(R.string.hint_input_mobile);
 				return;
@@ -56,7 +66,7 @@ public class RegisterActivity extends BaseActivity {
 			}
 			smsBtn.setEnabled(false);
 			smsBtn.setTextColor(Color.LTGRAY);
-			sendSmsVcode(mobile);
+			sendSmsVcode(mobile, username, pwd);
 			break;
 
 		default:
@@ -66,10 +76,10 @@ public class RegisterActivity extends BaseActivity {
 
 	
 
-	private void sendSmsVcode(String mobile) {
+	private void sendSmsVcode(String mobile, String username, String pwd) {
 		AVUser user = new AVUser();
-	    user.setUsername(userNameEditText.getText().toString().trim());
-	    user.setPassword(passwordEditText.getText().toString().trim());
+	    user.setUsername(username);
+	    user.setPassword(pwd);
 	    user.setMobilePhoneNumber(mobile);
 	    try {
 	    	if (smsBtn.getText().toString().equals("获取验证码")) {
