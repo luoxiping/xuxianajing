@@ -14,6 +14,7 @@ public class SettingActivity extends BaseActivity {
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.activity_setting);
+		
 		TopBar topBar = new TopBar(SettingActivity.this, "设置");
 		loginBtn = (Button) findViewById(R.id.login_btn);
 		if (SharePreferenceUtil.getInstance(getApplicationContext()).getString("token", null) == null) {
