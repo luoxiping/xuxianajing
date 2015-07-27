@@ -60,8 +60,9 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	public void widgetClick(View v) {
-		loading("正在登录中...");
-		if (v.getId() == R.id.login_button) {
+		switch (v.getId()) {
+		case R.id.login_button:
+			loading("正在登录中...");
 			final String accout = accoutEdit.getText().toString();
 			final String password = pwdEdit.getText().toString();
 			if (handleLoginInput(accout, password)) {
@@ -83,10 +84,16 @@ public class LoginActivity extends BaseActivity {
 				   
 				});
 			}
-		} else if (v.getId() == R.id.show_pwd){
+			break;
+		case R.id.show_pwd:
 			switchPwdTextVisible();
-		} else if (v.getId() == R.id.register){
+			break;
+		case R.id.register:
 			Utils.startActivity(LoginActivity.this, RegisterActivity.class);
+			break;
+
+		default:
+			break;
 		}
 	}
 	
