@@ -25,4 +25,6 @@
     <color name="red">#FF0000</color>
     <color name="translucent_background">#CC000000</color>
     <color name="blue_text">#399cd7</color>
+    <color name="green_nornal">#8B814C</color>
+    <color name="green_pressed">#8B8B00</color>
 </resources>
