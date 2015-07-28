@@ -62,10 +62,11 @@ public class LoginActivity extends BaseActivity {
 	public void widgetClick(View v) {
 		switch (v.getId()) {
 		case R.id.login_button:
-			loading("正在登录中...");
+			
 			final String accout = accoutEdit.getText().toString();
 			final String password = pwdEdit.getText().toString();
 			if (handleLoginInput(accout, password)) {
+				loading("正在登录中...");
 				AVUser.logInInBackground(accout, password, new LogInCallback() {
 
 					@Override
