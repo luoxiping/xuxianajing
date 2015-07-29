@@ -40,6 +40,7 @@
         <activity android:name="com.example.xuxianjing.activity.ImageActivity"
             	  android:theme="@style/translucent" ></activity>
         <activity android:name="com.example.xuxianjing.activity.SettingActivity" ></activity>
+        <activity android:name="com.example.xuxianjing.activity.SendMessageActivity"></activity>
     </application>
 
 </manifest>

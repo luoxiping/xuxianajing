@@ -155,6 +155,9 @@ public class MainActivity extends BaseActivity implements IssueListener {
 		case R.id.setting_imageview:
 			Utils.startActivity(MainActivity.this, SettingActivity.class);
 			break;
+		case R.id.go_share_btn:
+			Utils.startActivity(MainActivity.this, SendMessageActivity.class);
+			break;
 
 		default:
 			break;
