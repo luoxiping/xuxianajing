@@ -156,7 +156,8 @@ public class MainActivity extends BaseActivity implements IssueListener {
 			Utils.startActivity(MainActivity.this, SettingActivity.class);
 			break;
 		case R.id.go_share_btn:
-			Utils.startActivity(MainActivity.this, SendMessageActivity.class);
+//			Utils.startActivity(MainActivity.this, SendMessageActivity.class);
+			Utils.startActivity(MainActivity.this, ShareListActivity.class);
 			break;
 
 		default:

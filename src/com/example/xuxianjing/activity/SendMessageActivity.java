@@ -131,12 +131,14 @@ public class SendMessageActivity extends BaseActivity {
 						AVObject avObject = new AVObject("share");
 						avObject.put("attached", avFile);
 						avObject.put("content", content);
+						avObject.put("uid", AVUser.getCurrentUser().getUuid());
 						avObject.saveInBackground(new SaveCallback() {
 							
 							@Override
 							public void done(AVException e) {
 								if (e == null) {
 									MyApplication.showToast("分享成功!");
+									Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
 									finish();
 								} else {
 									MyApplication.showToast(e.toString());
