@@ -118,7 +118,7 @@ public class SendMessageActivity extends BaseActivity {
 			}
 			loading("分享中...");
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			mBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+			mBitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
 			byte[] bs = out.toByteArray();
 			AVUser user = AVUser.getCurrentUser();
 			String name = user.getUsername() + "_" + System.currentTimeMillis();
@@ -138,6 +138,7 @@ public class SendMessageActivity extends BaseActivity {
 							public void done(AVException e) {
 								if (e == null) {
 									MyApplication.showToast("分享成功!");
+									setResult(RESULT_OK);
 //									Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
 									finish();
 								} else {

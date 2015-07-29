@@ -17,6 +17,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ShareListActivity extends BaseActivity {
+	private static final int SHARE_RETURN = 0X12;
 	private PullToRefreshListView mPullRefreshListView;
 	private ArrayList<ShareBean> shareList;
 	private ShareListAdapter adapter;
@@ -41,7 +43,7 @@ public class ShareListActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View view) {
-				Utils.startActivity(ShareListActivity.this, SendMessageActivity.class);
+				Utils.startActivityForResult(ShareListActivity.this, SendMessageActivity.class, SHARE_RETURN);
 			}
 		});
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
@@ -93,6 +95,17 @@ public class ShareListActivity extends BaseActivity {
 	@Override
 	public void widgetClick(View v) {
 		
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK) {
+			return;
+		}
+		if (requestCode == SHARE_RETURN) {
+			getRemoteData();
+		}
 	}
 
 }
