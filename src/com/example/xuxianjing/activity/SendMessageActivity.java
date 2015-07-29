@@ -138,7 +138,7 @@ public class SendMessageActivity extends BaseActivity {
 							public void done(AVException e) {
 								if (e == null) {
 									MyApplication.showToast("分享成功!");
-									Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
+//									Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
 									finish();
 								} else {
 									MyApplication.showToast(e.toString());
