@@ -35,6 +35,7 @@ public class ShareListActivity extends BaseActivity {
 		shareList = new ArrayList<ShareBean>();
 		TopBar topBar = new TopBar(this, "分享主页");
 		TextView textView = (TextView) findViewById(R.id.btn_issue);
+		textView.setVisibility(View.VISIBLE);
 		textView.setText("去分享");
 		textView.setOnClickListener(new OnClickListener() {
 			
