@@ -10,5 +10,6 @@
     <string name="hint_input_username">请输入您的用户名</string>
     <string name="hint_input_pwd">请输入您的密码</string>
     <string name="tip_error_account_format">手机号格式错误</string>
+    <string name="bind_mobile">绑定手机</string>
 
 </resources>

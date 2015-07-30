@@ -91,6 +91,10 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
     	dialog.cancel();
     }
     
+    public void setLoadDialogText(String text){
+    	dialog.setLoadingText(text);
+    }
+    
     @Subscriber(tag = "csuicide")  
     private void csuicideMyself(String msg) {  
         finish();  

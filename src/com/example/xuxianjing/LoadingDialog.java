@@ -30,9 +30,7 @@ public class LoadingDialog {
         animation = AnimationUtils.loadAnimation(context, R.anim.loading_animation);  
         
         
-        // �����ؼ�������ȡ�����ȿ�
         dialog.setCancelable(true);
-        // ������ȿ��ⲻ��ȡ��
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(layout, new LinearLayout.LayoutParams(  
                 LinearLayout.LayoutParams.MATCH_PARENT,  
@@ -66,6 +64,14 @@ public class LoadingDialog {
 					loadingImage.clearAnimation();
 				}
 				dialog.cancel();
+			}
+		} catch (Exception e) {}
+	}
+	
+	public void setLoadingText(String text){
+		try {
+			if (null!=dialog && dialog.isShowing()) {
+				tipTextView.setText(text);
 			}
 		} catch (Exception e) {}
 	}

@@ -2,45 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
     android:orientation="vertical" >
     
     <include layout="@layout/include_top_bar" />
     
     <RelativeLayout
-        android:id="@+id/username_text_layout"
+        android:id="@+id/mobile_text_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:background="@drawable/layout_button_selector"
         android:gravity="center_vertical" >
 
         <View
-            android:id="@+id/stub1"
+            android:id="@+id/stub"
             android:layout_width="@dimen/settings_stub_item_width"
             android:layout_height="@dimen/settings_stub_item_height" />
 
         <TextView
-            android:id="@+id/item_user_name"
+            android:id="@+id/item_mobile"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/stub1"
+            android:layout_toRightOf="@id/stub"
             android:gravity="center_vertical|right"
             android:text="手机号"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/user_edit"
+            android:id="@+id/phone_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_toRightOf="@id/item_user_name"
+            android:layout_toRightOf="@id/item_mobile"
             android:background="@null"
-            android:hint="请输入手机号"
+            android:hint="输入手机号"
             android:inputType="phone"
             android:singleLine="true"
             android:textColor="#555555"
@@ -49,19 +47,20 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_below="@id/stub1"
+            android:layout_below="@id/stub"
+            android:layout_toRightOf="@id/stub"
             android:background="@color/grey_line" />
     </RelativeLayout>
     
     <RelativeLayout
-        android:id="@+id/pwd_text_layout"
+        android:id="@+id/auth_code_text_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/layout_button_selector"
         android:gravity="center_vertical" >
 
         <View
-            android:id="@+id/stub2"
+            android:id="@id/stub"
             android:layout_width="@dimen/settings_stub_item_width"
             android:layout_height="@dimen/settings_stub_item_height" />
 
@@ -70,65 +69,46 @@
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/stub2"
+            android:layout_toRightOf="@id/stub"
             android:gravity="center_vertical|right"
-            android:text="密    码"
+            android:text="验证码"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
+        <Button
+            android:id="@+id/get_auth_code_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:paddingRight="15dp"
+            android:text="获取验证码"
+            android:textColor="@color/blue"
+            android:textSize="16sp" />
+
         <EditText
-            android:id="@+id/pwd_edit"
+            android:id="@+id/auth_code_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:password="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/get_auth_code_button"
             android:layout_toRightOf="@id/item_label"
             android:background="@null"
-            android:hint="请输入密码"
+            android:hint="输入验证码"
+            android:inputType="number"
             android:singleLine="true"
             android:textColor="#555555"
             android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_below="@id/stub2"
-            android:background="@color/grey_line" />
     </RelativeLayout>
-    
-    
-    
-    <LinearLayout
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal" >
-
-        <CheckBox
-            android:id="@+id/protocal_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:checked="true"
-            android:drawableLeft="@drawable/register_protocal_checkbox_selector"
-            android:drawablePadding="5dp"
-            android:text="我同意"
-            android:textColor="@color/gray"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/protocal_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/service_protocal"
-            android:textColor="@color/blue"
-            android:textSize="14sp" />
-    </LinearLayout>
-
+        android:layout_height="1px"
+        android:background="@color/grey_line" />
+    
     <Button
         android:id="@+id/register_button"
         android:layout_width="match_parent"
@@ -137,11 +117,11 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_blue_selector"
-        android:text="@string/register_text"
+        android:text="@string/bind_mobile"
         android:textColor="@color/white"
-        android:textSize="18sp" />
-
+        android:textSize="18sp"
+        android:clickable="true"
+        android:onClick="onClick" />
     
 
 </LinearLayout>
-
