@@ -5,6 +5,7 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.AppManager;
 import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
@@ -27,7 +29,8 @@ public class LoginActivity extends BaseActivity {
 	private boolean isHidden = true;
 	private ImageView showPwd;
 	private TextView registerTextView;
-	
+	private long mExitTime;
+
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.activity_my_main);
@@ -39,16 +42,16 @@ public class LoginActivity extends BaseActivity {
 		pwdEdit = (EditText) findViewById(R.id.pwd_edit);
 		loginButton = (Button) findViewById(R.id.login_button);
 		loginButton.setOnClickListener(this);
-		
+
 		showPwd = (ImageView) findViewById(R.id.show_pwd);
 		showPwd.setOnClickListener(this);
-		
-//		AVUser currentUser = AVUser.getCurrentUser();
-//		if (currentUser != null) {
-//			Utils.startActivity(LoginActivity.this, MainActivity.class);
-//			finish();
-//		} 
-		
+
+		// AVUser currentUser = AVUser.getCurrentUser();
+		// if (currentUser != null) {
+		// Utils.startActivity(LoginActivity.this, MainActivity.class);
+		// finish();
+		// }
+
 		if (SharePreferenceUtil.getInstance(getApplicationContext()).getString("token", null) != null) {
 			Utils.startActivity(LoginActivity.this, MainActivity.class);
 			finish();
@@ -62,7 +65,7 @@ public class LoginActivity extends BaseActivity {
 	public void widgetClick(View v) {
 		switch (v.getId()) {
 		case R.id.login_button:
-			
+
 			final String accout = accoutEdit.getText().toString();
 			final String password = pwdEdit.getText().toString();
 			if (handleLoginInput(accout, password)) {
@@ -73,16 +76,18 @@ public class LoginActivity extends BaseActivity {
 					public void done(AVUser user, AVException e) {
 						destroyLoading();
 						if (user != null) {
-							SharePreferenceUtil.getInstance(getApplicationContext()).setString("token", user.getSessionToken());
-							SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone", user.getUsername());
+							SharePreferenceUtil.getInstance(getApplicationContext()).setString("token",
+									user.getSessionToken());
+							SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone",
+									user.getUsername());
 							SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
 							Utils.startActivity(LoginActivity.this, MainActivity.class);
 							finish();
-				        } else {
-				        	MyApplication.showToast("登陆失败");
-				        }
+						} else {
+							MyApplication.showToast("登陆失败");
+						}
 					}
-				   
+
 				});
 			}
 			break;
@@ -97,7 +102,7 @@ public class LoginActivity extends BaseActivity {
 			break;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param accout
@@ -108,15 +113,15 @@ public class LoginActivity extends BaseActivity {
 			Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG).show();
 			return false;
 		}
-		
+
 		if (TextUtils.isEmpty(pwd)) {
 			Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	private void switchPwdTextVisible() {
 		if (isHidden) {
 			pwdEdit.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -127,10 +132,10 @@ public class LoginActivity extends BaseActivity {
 		}
 		isHidden = !isHidden;
 		pwdEdit.postInvalidate();
-		
+
 		moveCursorToLast(pwdEdit);
 	}
-	
+
 	/**
 	 * 
 	 * @param editText
@@ -145,6 +150,20 @@ public class LoginActivity extends BaseActivity {
 			Spannable spanText = (Spannable) cs;
 			Selection.setSelection(spanText, cs.length());
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {
+				MyApplication.showToast("再按一次退出程序");
+				mExitTime = System.currentTimeMillis();
+			} else {
+				AppManager.getAppManager().AppExit(LoginActivity.this);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

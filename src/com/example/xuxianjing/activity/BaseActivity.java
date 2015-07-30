@@ -3,6 +3,7 @@ package com.example.xuxianjing.activity;
 import org.simple.eventbus.Subscriber;
 
 import com.example.xuxianjing.LoadingDialog;
+import com.example.xuxianjing.Util.AppManager;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -11,13 +12,15 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 
 public abstract class BaseActivity extends Activity implements OnClickListener {
+	private LoadingDialog dialog;
 	private static final int ACTIVITY_RESUME = 0;
     private static final int ACTIVITY_STOP = 1;
     private static final int ACTIVITY_PAUSE = 2;
     private static final int ACTIVITY_DESTROY = 3;
  
     public int activityState;
-    private LoadingDialog dialog;
+ 
+    // 是否允许全屏
     private boolean mAllowFullScreen = true;
  
     public abstract void initWidget();
@@ -33,13 +36,21 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
         widgetClick(v);
     }
  
+    /***************************************************************************
+     * 
+     * 打印Activity生命周期
+     * 
+     ***************************************************************************/
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //确定为竖屏
+        // 竖屏锁定
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         if (mAllowFullScreen) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            requestWindowFeature(Window.FEATURE_NO_TITLE); // 取消标题
         }
+        AppManager.getAppManager().addActivity(this);
         initWidget();
     }
  
@@ -75,6 +86,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         activityState = ACTIVITY_DESTROY;
+        AppManager.getAppManager().finishActivity(this);
     }
     
     public void loading(String msg){

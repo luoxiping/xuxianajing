@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,7 @@ import com.avos.avoscloud.ProgressCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.AppManager;
 import com.example.xuxianjing.Util.ImageThumbnail;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.TopBar.IssueListener;
@@ -55,6 +57,7 @@ public class MainActivity extends BaseActivity implements IssueListener {
 	private String fileName;
 	private String imagePath;
 	private AVFile fileAf;
+	private long mExitTime;
 
 	@Override
 	public void initWidget() {
@@ -88,6 +91,7 @@ public class MainActivity extends BaseActivity implements IssueListener {
 			}
 		});
 		TopBar topBar = new TopBar(this, "主页");
+		findViewById(R.id.btn_back).setVisibility(View.GONE);
 		dialogBuilder = new NiftyDialogBuilder(this, R.style.dialog_untran);
 	}
 
@@ -264,6 +268,20 @@ public class MainActivity extends BaseActivity implements IssueListener {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {
+				MyApplication.showToast("再按一次退出程序");
+				mExitTime = System.currentTimeMillis();
+			} else {
+				AppManager.getAppManager().AppExit(MainActivity.this);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }
