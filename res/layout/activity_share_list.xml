@@ -2,27 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/main_background" >
-    
+    android:background="@color/main_background"
+    android:orientation="vertical" >
+
     <include
         android:id="@+id/title"
         layout="@layout/include_top_bar" />
-    
+
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" >
+
+        <com.example.xuxianjing.view.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/xuxianjing"
+            app:border_color="#FF000000"
+            app:border_width="2dp" />
+    </RelativeLayout>
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_refresh_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginBottom="10dp"
         android:cacheColorHint="#00000000"
-        android:listSelector="@android:color/transparent"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:smoothScrollbar="true"
-        android:layout_marginBottom="10dp" />
-    
+        android:listSelector="@android:color/transparent"
+        android:smoothScrollbar="true" />
 
 </LinearLayout>
