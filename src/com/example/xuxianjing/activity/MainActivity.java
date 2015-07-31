@@ -52,6 +52,14 @@ public class MainActivity extends BaseActivity {
 				Utils.startActivityForResult(MainActivity.this, SendMessageActivity.class, SHARE_RETURN);
 			}
 		});
+		findViewById(R.id.btn_my_icon).setVisibility(View.VISIBLE);
+		findViewById(R.id.btn_my_icon).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Utils.startActivity(MainActivity.this, ShareListActivity.class);
+			}
+		});
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {

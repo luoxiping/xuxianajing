@@ -24,10 +24,12 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class SendMessageActivity extends BaseActivity {
@@ -43,7 +45,64 @@ public class SendMessageActivity extends BaseActivity {
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.activity_send_message);
-		TopBar topBar = new TopBar(this, "分享");
+		TopBar topBar = new TopBar(this, "");
+		TextView textView = (TextView) findViewById(R.id.btn_issue);
+		textView.setVisibility(View.VISIBLE);
+		textView.setText("分享");
+		textView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				loading("分享中...");
+				final AVFile avFile;
+				final String content = mEditText.getText().toString().trim();
+				if (TextUtils.isEmpty(content)) {
+					destroyLoading();
+					MyApplication.showToast("请输入分享内容!");
+					return;
+				}
+				if (mBitmap == null) {
+					destroyLoading();
+					MyApplication.showToast("您必须分享一张图片!");
+					return;
+				}
+				
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				mBitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
+				byte[] bs = out.toByteArray();
+				AVUser user = AVUser.getCurrentUser();
+				String name = user.getUsername() + "_" + System.currentTimeMillis();
+				avFile = new AVFile(name, bs);
+				avFile.saveInBackground(new SaveCallback() {
+					
+					@Override
+					public void done(AVException e) {
+						if (e == null) {
+							AVObject avObject = new AVObject("share");
+							avObject.put("attached", avFile);
+							avObject.put("content", content);
+							avObject.put("uid", AVUser.getCurrentUser().getObjectId());
+							avObject.saveInBackground(new SaveCallback() {
+								
+								@Override
+								public void done(AVException e) {
+									if (e == null) {
+										MyApplication.showToast("分享成功!");
+										setResult(RESULT_OK);
+//										Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
+										finish();
+									} else {
+										MyApplication.showToast(e.toString());
+									}
+								}
+							});
+						} else {
+							MyApplication.showToast(e.toString());
+						}
+					}
+				});
+			}
+		});
 		dialogBuilder = new NiftyDialogBuilder(this, R.style.dialog_untran);
 		mEditText = (EditText) findViewById(R.id.edit);
 		mImageView = (ImageView) findViewById(R.id.imageview);
@@ -101,56 +160,6 @@ public class SendMessageActivity extends BaseActivity {
 						break;
 					}
 					dialogBuilder.dismiss();
-				}
-			});
-			break;
-		case R.id.publish_btn:
-			loading("分享中...");
-			final AVFile avFile;
-			final String content = mEditText.getText().toString().trim();
-			if (TextUtils.isEmpty(content)) {
-				destroyLoading();
-				MyApplication.showToast("请输入分享内容!");
-				return;
-			}
-			if (mBitmap == null) {
-				destroyLoading();
-				MyApplication.showToast("您必须分享一张图片!");
-				return;
-			}
-			
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			mBitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
-			byte[] bs = out.toByteArray();
-			AVUser user = AVUser.getCurrentUser();
-			String name = user.getUsername() + "_" + System.currentTimeMillis();
-			avFile = new AVFile(name, bs);
-			avFile.saveInBackground(new SaveCallback() {
-				
-				@Override
-				public void done(AVException e) {
-					if (e == null) {
-						AVObject avObject = new AVObject("share");
-						avObject.put("attached", avFile);
-						avObject.put("content", content);
-						avObject.put("uid", AVUser.getCurrentUser().getObjectId());
-						avObject.saveInBackground(new SaveCallback() {
-							
-							@Override
-							public void done(AVException e) {
-								if (e == null) {
-									MyApplication.showToast("分享成功!");
-									setResult(RESULT_OK);
-//									Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
-									finish();
-								} else {
-									MyApplication.showToast(e.toString());
-								}
-							}
-						});
-					} else {
-						MyApplication.showToast(e.toString());
-					}
 				}
 			});
 			break;

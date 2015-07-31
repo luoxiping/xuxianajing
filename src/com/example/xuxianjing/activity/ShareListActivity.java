@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,23 +34,26 @@ public class ShareListActivity extends BaseActivity {
 	private ArrayList<ShareBean> shareList;
 	private ShareListAdapter adapter;
 	private ListView actualListView;
+	private ImageView setImageView;
 	private int pageCount = 10;
 
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.activity_share_list);
 		shareList = new ArrayList<ShareBean>();
-		TopBar topBar = new TopBar(this, "分享主页");
-		TextView textView = (TextView) findViewById(R.id.btn_issue);
-		textView.setVisibility(View.VISIBLE);
-		textView.setText("去分享");
-		textView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				Utils.startActivityForResult(ShareListActivity.this, SendMessageActivity.class, SHARE_RETURN);
-			}
-		});
+		TopBar topBar = new TopBar(this, "我的分享");
+		setImageView = (ImageView) findViewById(R.id.setting_imageview);
+		setImageView.setVisibility(View.VISIBLE);
+//		TextView textView = (TextView) findViewById(R.id.btn_issue);
+//		textView.setVisibility(View.VISIBLE);
+//		textView.setText("去分享");
+//		textView.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View view) {
+//				Utils.startActivityForResult(ShareListActivity.this, SendMessageActivity.class, SHARE_RETURN);
+//			}
+//		});
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -132,7 +136,13 @@ public class ShareListActivity extends BaseActivity {
 
 	@Override
 	public void widgetClick(View v) {
-
+		switch (v.getId()) {
+		case R.id.setting_imageview:
+			Utils.startActivity(ShareListActivity.this, SettingActivity.class);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

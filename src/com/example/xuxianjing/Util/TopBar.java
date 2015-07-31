@@ -45,6 +45,7 @@ public class TopBar {
 	}
 
 	private void initBack() {
+		findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
 		findViewById(R.id.btn_back).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View paramView) {

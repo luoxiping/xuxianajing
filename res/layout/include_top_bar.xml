@@ -17,7 +17,19 @@
             android:layout_marginLeft="2dp"
             android:onClick="doClick"
             android:src="@drawable/btn_back_selector"
-            android:background="@null" />
+            android:background="@null"
+            android:visibility="gone" />
+        
+        <ImageButton
+            android:id="@+id/btn_my_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:onClick="doClick"
+            android:src="@drawable/my_icon_normal"
+            android:background="@null"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/top_title"

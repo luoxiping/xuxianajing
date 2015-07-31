@@ -59,6 +59,7 @@
         android:text="发    布"
         android:textColor="@color/white"
         android:clickable="true"
-        android:onClick="onClick" />
+        android:onClick="onClick"
+        android:visibility="gone" />
     
 </RelativeLayout>
