@@ -157,6 +157,7 @@ int id get_image 0x7f06005b
 int id get_picture 0x7f06005a
 int id go_share_btn 0x7f06005c
 int id gridview 0x7f060000
+int id head_image 0x7f06002c
 int id icon 0x7f060033
 int id id_bottom_ly 0x7f06001b
 int id id_choose_dir 0x7f06001c
@@ -188,7 +189,6 @@ int id mobile_text_layout 0x7f06000d
 int id parentPanel 0x7f060030
 int id percent 0x7f060045
 int id phone_edit 0x7f060010
-int id profile_image 0x7f06002c
 int id protocal_button 0x7f060069
 int id protocal_checkbox 0x7f060068
 int id publish_btn 0x7f060029

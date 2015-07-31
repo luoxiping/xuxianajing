@@ -325,6 +325,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int get_picture=0x7f06005a;
         public static final int go_share_btn=0x7f06005c;
         public static final int gridview=0x7f060000;
+        public static final int head_image=0x7f06002c;
         public static final int icon=0x7f060033;
         public static final int id_bottom_ly=0x7f06001b;
         public static final int id_choose_dir=0x7f06001c;
@@ -356,7 +357,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int parentPanel=0x7f060030;
         public static final int percent=0x7f060045;
         public static final int phone_edit=0x7f060010;
-        public static final int profile_image=0x7f06002c;
         public static final int protocal_button=0x7f060069;
         public static final int protocal_checkbox=0x7f060068;
         public static final int publish_btn=0x7f060029;

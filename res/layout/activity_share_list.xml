@@ -16,12 +16,25 @@
 
         <com.example.xuxianjing.view.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:id="@+id/head_image"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/xuxianjing"
             app:border_color="#FF000000"
             app:border_width="2dp" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/head_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="签名"
+            android:textSize="15sp" />
+        
     </RelativeLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
