@@ -28,6 +28,7 @@ public class ImageActivity extends BaseActivity {
 				finish();
 			}
 		});
+		
 		AQuery aq = new AQuery(mImageView);
 		aq.image(imagePath, true, true, 200, R.drawable.ic_launcher);
 		
