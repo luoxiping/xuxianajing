@@ -7,6 +7,7 @@ import com.example.xuxianjing.Util.AppManager;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -23,7 +24,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
     // 是否允许全屏
     private boolean mAllowFullScreen = true;
  
-    public abstract void initWidget();
+    public abstract void initWidget(Bundle savedInstanceState);
  
     public abstract void widgetClick(View v);
  
@@ -51,7 +52,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
             requestWindowFeature(Window.FEATURE_NO_TITLE); // 取消标题
         }
         AppManager.getAppManager().addActivity(this);
-        initWidget();
+        initWidget(savedInstanceState);
     }
  
     @Override

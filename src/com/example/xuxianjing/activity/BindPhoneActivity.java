@@ -14,6 +14,7 @@ import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -31,7 +32,7 @@ public class BindPhoneActivity extends BaseActivity {
 	private String password;
 
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_bind_phone);
 		TopBar topBar = new TopBar(this, "绑定手机");
 		phoneEditText = (EditText) findViewById(R.id.phone_edit);

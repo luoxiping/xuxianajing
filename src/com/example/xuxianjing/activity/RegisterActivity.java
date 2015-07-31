@@ -26,7 +26,7 @@ public class RegisterActivity extends BaseActivity {
 	private Button registerBtn;
 
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.register);
 		TopBar topBar = new TopBar(this, "注册");
 		userNameEditText = (EditText) findViewById(R.id.user_edit);

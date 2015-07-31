@@ -48,7 +48,7 @@ public class MainActivity2 extends BaseActivity implements IssueListener {
 	private long mExitTime;
 
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.main);
 		setImageView = (ImageView) findViewById(R.id.setting_imageview);
 		setImageView.setVisibility(View.VISIBLE);

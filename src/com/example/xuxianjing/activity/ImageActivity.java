@@ -4,13 +4,15 @@ import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.view.library.PhotoView;
 import com.example.xuxianjing.view.library.PhotoViewAttacher.OnViewTapListener;
+
+import android.os.Bundle;
 import android.view.View;
 
 public class ImageActivity extends BaseActivity {
 	private String imagePath;
 	
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_image);
 		imagePath = getIntent().getExtras().getString("imagePath");
 		PhotoView mImageView = (PhotoView) findViewById(R.id.imageview);

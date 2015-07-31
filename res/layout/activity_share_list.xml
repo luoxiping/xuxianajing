@@ -12,30 +12,42 @@
     <RelativeLayout
         android:id="@+id/rl_head"
         android:layout_width="match_parent"
-        android:layout_height="200dp" >
+        android:layout_height="100dp" >
 
         <com.example.xuxianjing.view.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/head_image"
             android:layout_width="66dp"
             android:layout_height="66dp"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/xuxianjing"
-            app:border_color="#FF000000"
+            app:border_color="#ffffff"
             app:border_width="2dp" />
         <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/head_image"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="签名"
+            android:layout_toRightOf="@id/head_image"
+            android:layout_alignTop="@id/head_image"
+            android:layout_marginLeft="8dp"
+            android:text="账户名"
             android:textSize="15sp" />
-        
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/head_image"
+            android:layout_alignBottom="@id/head_image"
+            android:layout_marginLeft="8dp"
+            android:text="好好学习，天天向上！"
+            android:textSize="15sp" />
     </RelativeLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line" />
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_refresh_list"

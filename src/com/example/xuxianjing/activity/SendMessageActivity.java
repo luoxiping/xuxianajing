@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -43,7 +44,7 @@ public class SendMessageActivity extends BaseActivity {
 	private Bitmap mBitmap;
 
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_send_message);
 		TopBar topBar = new TopBar(this, "");
 		TextView textView = (TextView) findViewById(R.id.btn_issue);

@@ -17,6 +17,7 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -123,7 +124,7 @@ public class ImageLocalActivity extends BaseActivity implements OnImageDirSelect
 	}
 	
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_main);
 		TopBar topBar = new TopBar(this, "选择相片");
 		DisplayMetrics outMetrics = new DisplayMetrics();

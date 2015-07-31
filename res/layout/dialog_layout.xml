@@ -46,9 +46,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
             <RelativeLayout
                 android:id="@+id/title_template"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginEnd="16dip"
-                android:layout_marginStart="16dip" >
+                android:layout_height="58dp" >
 
                 <ImageView
                     android:id="@+id/icon"
@@ -95,8 +93,6 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:paddingBottom="8dip"
-                android:paddingEnd="16dip"
-                android:paddingStart="16dip"
                 android:paddingTop="8dip"
                 android:textColor="@color/msg_color"
                 android:textIsSelectable="true" />

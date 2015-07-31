@@ -5,6 +5,7 @@ import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,7 +13,7 @@ public class SettingActivity extends BaseActivity {
 	private Button loginBtn;
 	
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_setting);
 		
 		TopBar topBar = new TopBar(SettingActivity.this, "设置");

@@ -21,6 +21,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +39,7 @@ public class ShareListActivity extends BaseActivity {
 	private int pageCount = 10;
 
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_share_list);
 		shareList = new ArrayList<ShareBean>();
 		TopBar topBar = new TopBar(this, "我的分享");

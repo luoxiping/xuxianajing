@@ -1,5 +1,6 @@
 package com.example.xuxianjing.activity;
 
+import android.os.Bundle;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -32,7 +33,7 @@ public class LoginActivity extends BaseActivity {
 	private long mExitTime;
 
 	@Override
-	public void initWidget() {
+	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_my_main);
 		TopBar topBar = new TopBar(this, "登陆");
 		findViewById(R.id.btn_back).setVisibility(View.GONE);
