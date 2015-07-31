@@ -169,6 +169,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dialog_bg=0x7f08000e;
         public static final int divider_color=0x7f08000c;
         public static final int gray=0x7f080009;
+        public static final int gray_relight=0x7f080018;
         public static final int green_nornal=0x7f080016;
         public static final int green_pressed=0x7f080017;
         public static final int grey_line=0x7f080006;

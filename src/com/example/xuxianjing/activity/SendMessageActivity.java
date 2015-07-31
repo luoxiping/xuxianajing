@@ -106,17 +106,20 @@ public class SendMessageActivity extends BaseActivity {
 			});
 			break;
 		case R.id.publish_btn:
+			loading("分享中...");
 			final AVFile avFile;
 			final String content = mEditText.getText().toString().trim();
 			if (TextUtils.isEmpty(content)) {
+				destroyLoading();
 				MyApplication.showToast("请输入分享内容!");
 				return;
 			}
 			if (mBitmap == null) {
+				destroyLoading();
 				MyApplication.showToast("您必须分享一张图片!");
 				return;
 			}
-			loading("分享中...");
+			
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			mBitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
 			byte[] bs = out.toByteArray();
@@ -131,7 +134,7 @@ public class SendMessageActivity extends BaseActivity {
 						AVObject avObject = new AVObject("share");
 						avObject.put("attached", avFile);
 						avObject.put("content", content);
-						avObject.put("uid", AVUser.getCurrentUser().getUuid());
+						avObject.put("uid", AVUser.getCurrentUser().getObjectId());
 						avObject.saveInBackground(new SaveCallback() {
 							
 							@Override

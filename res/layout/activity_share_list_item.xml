@@ -10,15 +10,24 @@
         android:layout_height="80dp"
         android:layout_centerVertical="true"
         android:layout_margin="8dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/xuxianjing" />
     <TextView
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/imageview"
         android:layout_centerVertical="true"
-        android:text="分享内容" />
+        android:text="分享内容"
+        android:textSize="18sp" />
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray"
+        android:layout_below="@id/imageview" />
 
 </RelativeLayout>

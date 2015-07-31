@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="main_background">#f9f9f9</color> 
+	<color name="main_background">#ffffff</color> 
 	<color name="btn_red_pressed">#cb0a0e</color>
     <color name="btn_orange_normal">#F14118</color> 
     <color name="btn_orange_pressed">#ff8f23</color>  
     <color name="white">#ffffff</color>
-    <color name="light_gray">#eeeeee</color>
+    <color name="light_gray">#DEDEDE</color>
     <color name="grey_line">#cecece</color>
     <color name="blue">#3A5FCD</color>
     <color name="black">#000000</color>
@@ -25,6 +25,8 @@
     <color name="red">#FF0000</color>
     <color name="translucent_background">#CC000000</color>
     <color name="blue_text">#399cd7</color>
-    <color name="green_nornal">#8B814C</color>
-    <color name="green_pressed">#8B8B00</color>
+    <color name="green_nornal">#4EEE94</color>
+    <color name="green_pressed">#32CD32</color>
+    
+    <color name="gray_relight">#FFFAF0</color>
 </resources>

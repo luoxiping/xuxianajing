@@ -1,6 +1,7 @@
 package com.example.xuxianjing.activity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.avos.avoscloud.AVException;
@@ -9,12 +10,14 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
+import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.bean.ShareBean;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 
 import android.content.Intent;
@@ -30,7 +33,7 @@ public class ShareListActivity extends BaseActivity {
 	private ArrayList<ShareBean> shareList;
 	private ShareListAdapter adapter;
 	private ListView actualListView;
-	
+
 	@Override
 	public void initWidget() {
 		setContentView(R.layout.activity_share_list);
@@ -40,61 +43,92 @@ public class ShareListActivity extends BaseActivity {
 		textView.setVisibility(View.VISIBLE);
 		textView.setText("去分享");
 		textView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View view) {
 				Utils.startActivityForResult(ShareListActivity.this, SendMessageActivity.class, SHARE_RETURN);
 			}
 		});
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
+		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 			@Override
 			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-				
+				if (mPullRefreshListView.isHeaderShown()) {
+					shareList.clear();
+					getRemoteData();
+				} else if (mPullRefreshListView.isFooterShown()) {
+					AVQuery<AVObject> query = new AVQuery<AVObject>("share");
+					query.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
+					query.setLimit(10); // 限制最多10个结果
+					query.setSkip(10); // 忽略前10个
+					query.findInBackground(new FindCallback<AVObject>() {
+						public void done(List<AVObject> avObjects, AVException e) {
+							destroyLoading();
+							mPullRefreshListView.onRefreshComplete();
+							if (e == null) {
+								Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
+								if (avObjects.size() == 0) {
+									MyApplication.showToast("已经加载完所有数据！");
+									return;
+								}
+								for (int i = 0; i < avObjects.size(); i++) {
+									ShareBean bean = new ShareBean();
+									AVFile avFile = avObjects.get(i).getAVFile("attached");
+									bean.setImageUrl(avFile.getUrl());
+									bean.setContent(avObjects.get(i).getString("content"));
+									shareList.add(bean);
+								}
+								adapter.notifyDataSetChanged();
+							} else {
+								Log.d("失败", "查询错误: " + e.getMessage());
+							}
+						}
+					});
+				}
+
 			}
 		});
 		actualListView = mPullRefreshListView.getRefreshableView();
-//		ShareBean bean = new ShareBean();
-//    	
-//    	bean.setImageUrl("http://ac-ftou3kqo.clouddn.com/Yy3nFkehxiCrFdyZb4m5b2pZhu41ijk76FTx563K");
-//    	bean.setContent("Hello World!");
-//    	shareList.add(bean);
-//		adapter = new ShareListAdapter(ShareListActivity.this, shareList);
-//        actualListView.setAdapter(adapter);
+		adapter = new ShareListAdapter(ShareListActivity.this, shareList);
+		actualListView.setAdapter(adapter);
+		loading("正在加载数据...");
 		getRemoteData();
 	}
 
 	private void getRemoteData() {
-		loading("正在加载数据...");
+
 		AVQuery<AVObject> query = new AVQuery<AVObject>("share");
-		query.whereEqualTo("uid", AVUser.getCurrentUser().getUuid());
+		query.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
+		query.setLimit(10); // 限制最多10个结果
 		query.findInBackground(new FindCallback<AVObject>() {
-		    public void done(List<AVObject> avObjects, AVException e) {
-		    	destroyLoading();
-		        if (e == null) {
-		            Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
-		            if (avObjects.size() == 0) {
+			public void done(List<AVObject> avObjects, AVException e) {
+				destroyLoading();
+				mPullRefreshListView.onRefreshComplete();
+				if (e == null) {
+					Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
+					if (avObjects.size() == 0) {
 						return;
 					}
-		            for (int i = 0; i < avObjects.size(); i++) {
-		            	ShareBean bean = new ShareBean();
-		            	AVFile avFile = avObjects.get(i).getAVFile("attached");
-		            	bean.setImageUrl(avFile.getUrl());
-		            	bean.setContent(avObjects.get(i).getString("content"));
-		            	shareList.add(bean);
+					for (int i = 0; i < avObjects.size(); i++) {
+						ShareBean bean = new ShareBean();
+						AVFile avFile = avObjects.get(i).getAVFile("attached");
+						bean.setImageUrl(avFile.getUrl());
+						bean.setContent(avObjects.get(i).getString("content"));
+						shareList.add(bean);
+
 					}
-		            adapter = new ShareListAdapter(ShareListActivity.this, shareList);
-		            actualListView.setAdapter(adapter);
-		        } else {
-		            Log.d("失败", "查询错误: " + e.getMessage());
-		        }
-		    }
+					adapter.notifyDataSetChanged();
+				} else {
+					Log.d("失败", "查询错误: " + e.getMessage());
+				}
+			}
 		});
 	}
 
 	@Override
 	public void widgetClick(View v) {
-		
+
 	}
 
 	@Override
@@ -104,6 +138,8 @@ public class ShareListActivity extends BaseActivity {
 			return;
 		}
 		if (requestCode == SHARE_RETURN) {
+			loading("正在加载数据...");
+			shareList.clear();
 			getRemoteData();
 		}
 	}

@@ -39,10 +39,10 @@
         android:text="添加图片" />
     <ImageView
         android:id="@+id/imageview"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@id/add_btn"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp" />
     <Button
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/add_btn"
         android:background="@drawable/btn_blue_selector"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:paddingTop="12dp"

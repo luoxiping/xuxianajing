@@ -13,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ShareListAdapter extends BaseAdapter {
-	private ArrayList<ShareBean> items;
+	private ArrayList<ShareBean> items = new ArrayList<ShareBean>();
 	private Activity activity;
 	
-	public ShareListAdapter(Activity activity, ArrayList<ShareBean> items) {
+	public ShareListAdapter(Activity activity, ArrayList<ShareBean> shareList) {
 		this.activity = activity;
-		this.items = items;
+		this.items = shareList;
 	}
 	
 	@Override
