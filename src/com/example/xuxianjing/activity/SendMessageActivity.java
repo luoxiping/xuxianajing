@@ -2,7 +2,6 @@ package com.example.xuxianjing.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import com.androidquery.AQuery;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
@@ -169,8 +168,7 @@ public class SendMessageActivity extends BaseActivity {
 			mBitmap = BitmapFactory.decodeFile(fileName);
 			String[] names = fileName.split("/");
 			name = names[names.length - 1];
-			AQuery aq = new AQuery(mImageView);
-			aq.image(imagePath, true, true, 260, R.drawable.ic_launcher);
+			MyApplication.display(mImageView, imagePath);
 		} else if (requestCode == 0x12 && resultCode == RESULT_OK) {
 			// 将保存在本地的图片取出并缩小后显示在界面上
 			name = "workupload.jpg";
@@ -188,8 +186,7 @@ public class SendMessageActivity extends BaseActivity {
 				// 将处理过的图片显示在界面上，并保存到本地
 				mImageView.setVisibility(View.VISIBLE);
 				// mImageView.setImageBitmap(bitMap);
-				AQuery aq = new AQuery(mImageView);
-				aq.image(imagePath, true, true, 260, R.drawable.ic_launcher);
+				MyApplication.display(mImageView, imagePath);
 				String photoLocalPath = ImageThumbnail.savaPhotoToLocal(data, bitMap);
 			}
 		}

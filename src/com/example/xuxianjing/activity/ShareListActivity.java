@@ -33,6 +33,7 @@ public class ShareListActivity extends BaseActivity {
 	private ArrayList<ShareBean> shareList;
 	private ShareListAdapter adapter;
 	private ListView actualListView;
+	private int pageCount = 10;
 
 	@Override
 	public void initWidget() {
@@ -55,13 +56,15 @@ public class ShareListActivity extends BaseActivity {
 			@Override
 			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
 				if (mPullRefreshListView.isHeaderShown()) {
+					pageCount = 10;
 					shareList.clear();
 					getRemoteData();
 				} else if (mPullRefreshListView.isFooterShown()) {
 					AVQuery<AVObject> query = new AVQuery<AVObject>("share");
 					query.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
 					query.setLimit(10); // 限制最多10个结果
-					query.setSkip(10); // 忽略前10个
+					query.setSkip(pageCount); // 忽略前10个
+					query.orderByDescending("createdAt");
 					query.findInBackground(new FindCallback<AVObject>() {
 						public void done(List<AVObject> avObjects, AVException e) {
 							destroyLoading();
@@ -72,6 +75,7 @@ public class ShareListActivity extends BaseActivity {
 									MyApplication.showToast("已经加载完所有数据！");
 									return;
 								}
+								pageCount = pageCount + avObjects.size();
 								for (int i = 0; i < avObjects.size(); i++) {
 									ShareBean bean = new ShareBean();
 									AVFile avFile = avObjects.get(i).getAVFile("attached");
@@ -97,10 +101,10 @@ public class ShareListActivity extends BaseActivity {
 	}
 
 	private void getRemoteData() {
-
 		AVQuery<AVObject> query = new AVQuery<AVObject>("share");
 		query.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
 		query.setLimit(10); // 限制最多10个结果
+		query.orderByDescending("createdAt");
 		query.findInBackground(new FindCallback<AVObject>() {
 			public void done(List<AVObject> avObjects, AVException e) {
 				destroyLoading();

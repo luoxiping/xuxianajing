@@ -7,7 +7,7 @@ import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.CommonAdapter;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.Util.ViewHolder;
-import com.example.xuxianjing.activity.MainActivity;
+import com.example.xuxianjing.activity.MainActivity2;
 
 import android.app.Activity;
 import android.content.Context;

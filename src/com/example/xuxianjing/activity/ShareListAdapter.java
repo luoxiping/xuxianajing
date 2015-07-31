@@ -1,7 +1,7 @@
 package com.example.xuxianjing.activity;
 
 import java.util.ArrayList;
-import com.androidquery.AQuery;
+import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.bean.ShareBean;
 import android.app.Activity;
@@ -47,8 +47,7 @@ public class ShareListAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) conternView.getTag();
 		}
-		AQuery aq = new AQuery(holder.imageView);
-		aq.image(items.get(position).getImageUrl(), true, true, 300, R.drawable.ic_launcher);
+		MyApplication.display(holder.imageView, items.get(position).getImageUrl());
 		holder.textView.setText(items.get(position).getContent());
 		return conternView;
 	}
