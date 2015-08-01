@@ -1,9 +1,13 @@
 package com.example.xuxianjing.activity;
 
 import java.util.ArrayList;
+
+import com.avos.avoscloud.AVUser;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.bean.ShareBean;
+import com.example.xuxianjing.view.CircleImageView;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,10 +47,14 @@ public class ShareListAdapter extends BaseAdapter {
 			conternView = LayoutInflater.from(activity).inflate(R.layout.activity_share_list_item, null, false);
 			holder.imageView = (ImageView) conternView.findViewById(R.id.imageview);
 			holder.textView = (TextView) conternView.findViewById(R.id.content);
+			holder.nameTextView = (TextView) conternView.findViewById(R.id.name);
+			holder.circleImageView = (CircleImageView) conternView.findViewById(R.id.head_image);
 			conternView.setTag(holder);
 		} else {
 			holder = (ViewHolder) conternView.getTag();
 		}
+		holder.nameTextView.setText(AVUser.getCurrentUser().getUsername());
+		MyApplication.display(holder.circleImageView, items.get(position).getImageUrl());
 		MyApplication.display(holder.imageView, items.get(position).getImageUrl());
 		holder.textView.setText(items.get(position).getContent());
 		return conternView;
@@ -55,6 +63,8 @@ public class ShareListAdapter extends BaseAdapter {
 	class ViewHolder{
 		ImageView imageView;
 		TextView textView;
+		TextView nameTextView;
+		CircleImageView circleImageView;
 	}
 
 }

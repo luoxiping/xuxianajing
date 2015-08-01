@@ -13,7 +13,6 @@ import com.example.xuxianjing.Util.AppManager;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.activity.reside.CalendarFragment;
-import com.example.xuxianjing.activity.reside.HomeFragment;
 import com.example.xuxianjing.activity.reside.ProfileFragment;
 import com.example.xuxianjing.activity.reside.SettingsFragment;
 import com.example.xuxianjing.bean.ShareBean;
@@ -58,7 +57,7 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main_discover);
 		mContext = this;
 		shareList = new ArrayList<ShareBean>();
-		TopBar topBar = new TopBar(this, "发现");
+		TopBar topBar = new TopBar(this, "感悟");
 		findViewById(R.id.btn_back).setVisibility(View.GONE);
 		findViewById(R.id.btn_right).setVisibility(View.VISIBLE);
 		CircleImageView imageButton = (CircleImageView) findViewById(R.id.write_image);
@@ -141,10 +140,10 @@ public class MainActivity extends BaseActivity {
         resideMenu.setScaleValue(0.6f);
 
         // create menu items;
-        itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     "Home");
-        itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "Profile");
+        itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     "感悟");
+        itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "我的感悟");
         itemCalendar = new ResideMenuItem(this, R.drawable.icon_calendar, "Calendar");
-        itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, "Settings");
+        itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, "设置");
 
         itemHome.setOnClickListener(this);
         itemProfile.setOnClickListener(this);

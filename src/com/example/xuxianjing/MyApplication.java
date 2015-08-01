@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class MyApplication extends Application {
 	private static Context mContext;
 	private static KJBitmap kjb;
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();

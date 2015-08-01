@@ -15,6 +15,7 @@ import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.bean.ShareBean;
+import com.example.xuxianjing.view.CircleImageView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -37,14 +38,23 @@ public class ShareListActivity extends BaseActivity {
 	private ListView actualListView;
 	private ImageView setImageView;
 	private int pageCount = 10;
+	private CircleImageView circleImageView;
 
 	@Override
 	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_share_list);
 		shareList = new ArrayList<ShareBean>();
-		TopBar topBar = new TopBar(this, "我的分享");
+		TopBar topBar = new TopBar(this, "我的感悟");
 		setImageView = (ImageView) findViewById(R.id.setting_imageview);
 		setImageView.setVisibility(View.VISIBLE);
+		circleImageView = (CircleImageView) findViewById(R.id.head_image);
+		circleImageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Utils.startActivity(ShareListActivity.this, ChangeHeadActivity.class);
+			}
+		});
 //		TextView textView = (TextView) findViewById(R.id.btn_issue);
 //		textView.setVisibility(View.VISIBLE);
 //		textView.setText("去分享");
@@ -102,7 +112,31 @@ public class ShareListActivity extends BaseActivity {
 		adapter = new ShareListAdapter(ShareListActivity.this, shareList);
 		actualListView.setAdapter(adapter);
 		loading("正在加载数据...");
+		getHeadData();
 		getRemoteData();
+	}
+
+	private void getHeadData() {
+		AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
+		queryHead.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
+		queryHead.findInBackground(new FindCallback<AVObject>() {
+			
+			@Override
+			public void done(List<AVObject> avObjects, AVException e) {
+				if (e == null) {
+					Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
+					if (avObjects.size() == 0) {
+						circleImageView.setImageResource(R.drawable.head);
+					} else {
+						MyApplication.display(circleImageView, 
+								avObjects.get(avObjects.size() - 1).getAVFile("attached").getUrl());
+					}
+				} else {
+					circleImageView.setImageResource(R.drawable.head);
+				}
+				getRemoteData();
+			}
+		});
 	}
 
 	private void getRemoteData() {

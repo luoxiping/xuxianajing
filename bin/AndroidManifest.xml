@@ -43,6 +43,7 @@
         <activity android:name="com.example.xuxianjing.activity.SendMessageActivity" ></activity>
         <activity android:name="com.example.xuxianjing.activity.ShareListActivity" ></activity>
         <activity android:name="com.example.xuxianjing.activity.BindPhoneActivity" ></activity>
+        <activity android:name="com.example.xuxianjing.activity.ChangeHeadActivity" ></activity>
     </application>
 
 </manifest>
