@@ -3,8 +3,9 @@ package com.example.xuxianjing;
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.bitmap.BitmapCallBack;
 import org.kymjs.kjframe.bitmap.BitmapConfig;
-
 import com.avos.avoscloud.AVOSCloud;
+import com.example.xuxianjing.cache.ACache;
+
 import android.app.Application;
 import android.content.Context;
 import android.view.View;
@@ -12,7 +13,8 @@ import android.widget.Toast;
 
 public class MyApplication extends Application {
 	private static Context mContext;
-	private static KJBitmap kjb;
+	public static KJBitmap kjb;
+	public static ACache mCache;
 	
 	@Override
 	public void onCreate() {
@@ -24,6 +26,7 @@ public class MyApplication extends Application {
         //如下设置会将图片缓存到SD卡根目录的KJBitmap文件夹内的cache文件夹中
         BitmapConfig.CACHEPATH = "xuxianjing/cache"; //这个就是我们图片缓存的路径了
         kjb = new KJBitmap(config);
+        mCache = ACache.get(mContext);
 	}
 	
 	public static void showToast(String msg){

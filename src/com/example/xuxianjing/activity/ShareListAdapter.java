@@ -54,7 +54,7 @@ public class ShareListAdapter extends BaseAdapter {
 			holder = (ViewHolder) conternView.getTag();
 		}
 		holder.nameTextView.setText(AVUser.getCurrentUser().getUsername());
-		MyApplication.display(holder.circleImageView, items.get(position).getImageUrl());
+		MyApplication.display(holder.circleImageView, items.get(position).getHeadPath());
 		MyApplication.display(holder.imageView, items.get(position).getImageUrl());
 		holder.textView.setText(items.get(position).getContent());
 		return conternView;

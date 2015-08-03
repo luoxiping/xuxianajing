@@ -21,7 +21,6 @@
             android:layout_height="66dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/xuxianjing"
             app:border_color="#ffffff"
             app:border_width="2dp" />
         <TextView

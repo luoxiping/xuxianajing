@@ -4,6 +4,23 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ListView;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
@@ -15,26 +32,11 @@ import com.avos.avoscloud.SaveCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.ImageThumbnail;
+import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.adapter.SingleDmAdapter;
-import com.example.xuxianjing.bean.ShareBean;
 import com.example.xuxianjing.dialog.Effectstype;
 import com.example.xuxianjing.dialog.NiftyDialogBuilder;
-
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class ChangeHeadActivity extends BaseActivity {
 	private ImageView headImageView;
@@ -44,12 +46,19 @@ public class ChangeHeadActivity extends BaseActivity {
 	private String fileName;
 	private String imagePath;
 	private Bitmap mBitmap;
+	private String headPath;
 	
 	@Override
 	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_head_change);
 		headImageView = (ImageView) findViewById(R.id.head);
 		dialogBuilder = new NiftyDialogBuilder(this, R.style.dialog_untran);
+		headPath = SharePreferenceUtil.getInstance(getApplicationContext()).getString("head", "");
+		if (TextUtils.isEmpty(headPath)) {
+			headImageView.setImageResource(R.drawable.head);
+		} else {
+			MyApplication.display(headImageView, headPath);
+		}
 	}
 
 	@Override
@@ -139,21 +148,26 @@ public class ChangeHeadActivity extends BaseActivity {
 									query.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
 									query.findInBackground(new FindCallback<AVObject>() {
 										public void done(List<AVObject> avObjects, AVException e) {
-											destroyLoading();
+											
 											if (e == null) {
 												Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
 												if (avObjects.size() == 0) {
 													return;
 												}
+												AVFile avFile2 = avObjects.get(avObjects.size() - 1).getAVFile("attached");
+												SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", avFile2.getUrl());
 												AVFile avFile = avObjects.get(0).getAVFile("attached");
 												avFile.deleteInBackground(new DeleteCallback() {
 													
 													@Override
 													public void done(AVException e) {
+														destroyLoading();
+														MyApplication.mCache.put(AVUser.getCurrentUser().getObjectId() + "head", "");
 														MyApplication.showToast("保存成功!");
 													}
 												});
 											} else {
+												destroyLoading();
 												Log.d("失败", "查询错误: " + e.getMessage());
 											}
 										}
@@ -187,8 +201,6 @@ public class ChangeHeadActivity extends BaseActivity {
 			String[] names = fileName.split("/");
 			name = names[names.length - 1];
 			MyApplication.display(headImageView, imagePath);
-//			AQuery aq = new AQuery(mImageView);
-//			aq.image(imagePath, true, true, 260, R.drawable.ic_launcher);
 		} else if (requestCode == 0x12 && resultCode == RESULT_OK) {
 			// 将保存在本地的图片取出并缩小后显示在界面上
 			name = "head.jpeg";
@@ -206,46 +218,18 @@ public class ChangeHeadActivity extends BaseActivity {
 				// 将处理过的图片显示在界面上，并保存到本地
 				headImageView.setVisibility(View.VISIBLE);
 				MyApplication.display(headImageView, imagePath);
-//				mImageView.setImageBitmap(bitMap);
-//				AQuery aq = new AQuery(mImageView);
-//				aq.image(imagePath, true, true, 260, R.drawable.ic_launcher);
 				String photoLocalPath = ImageThumbnail.savaPhotoToLocal(data, bitMap);
 			}
-			//返回缩略图
-			// String sdStatus = Environment.getExternalStorageState();
-			// if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-			// MyApplication.showToast("请检查SD卡是否存在！");
-			// return;
-			// }
-			// name = new DateFormat().format("yyyyMMdd_hhmmss",
-			// Calendar.getInstance(Locale.CHINA)) + ".jpg";
-			// MyApplication.showToast(name);
-			// Bundle bundle = data.getExtras();
-			// Bitmap bitmap = (Bitmap) bundle.get("data");//
-			// 获取相机返回的数据，并转换为Bitmap图片格式
-			//
-			// FileOutputStream b = null;
-			// File file = new File(Environment.getExternalStorageDirectory() ,
-			// "myImage");
-			// file.mkdirs();// 创建文件夹
-			// fileName = Environment.getExternalStorageDirectory() +
-			// "/myImage/"+name;
-			// imagePath = fileName;
-			// try {
-			// b = new FileOutputStream(fileName);
-			// bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
-			// } catch (FileNotFoundException e) {
-			// e.printStackTrace();
-			// } finally {
-			// try {
-			// b.flush();
-			// b.close();
-			// } catch (IOException e) {
-			// e.printStackTrace();
-			// }
-			// }
-			// mImageView.setImageBitmap(bitmap);
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

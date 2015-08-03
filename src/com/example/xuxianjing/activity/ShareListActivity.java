@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.kymjs.kjframe.KJBitmap;
+import org.kymjs.kjframe.bitmap.BitmapConfig;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
@@ -12,6 +15,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
+import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.bean.ShareBean;
@@ -22,7 +26,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +45,7 @@ public class ShareListActivity extends BaseActivity {
 	private ImageView setImageView;
 	private int pageCount = 10;
 	private CircleImageView circleImageView;
+	private String headPath;
 
 	@Override
 	public void initWidget(Bundle savedInstanceState) {
@@ -55,16 +62,6 @@ public class ShareListActivity extends BaseActivity {
 				Utils.startActivity(ShareListActivity.this, ChangeHeadActivity.class);
 			}
 		});
-//		TextView textView = (TextView) findViewById(R.id.btn_issue);
-//		textView.setVisibility(View.VISIBLE);
-//		textView.setText("去分享");
-//		textView.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View view) {
-//				Utils.startActivityForResult(ShareListActivity.this, SendMessageActivity.class, SHARE_RETURN);
-//			}
-//		});
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -92,13 +89,9 @@ public class ShareListActivity extends BaseActivity {
 								}
 								pageCount = pageCount + avObjects.size();
 								for (int i = 0; i < avObjects.size(); i++) {
-									ShareBean bean = new ShareBean();
-									AVFile avFile = avObjects.get(i).getAVFile("attached");
-									bean.setImageUrl(avFile.getUrl());
-									bean.setContent(avObjects.get(i).getString("content"));
-									shareList.add(bean);
+									getHeadData(avObjects, i);
 								}
-								adapter.notifyDataSetChanged();
+								
 							} else {
 								Log.d("失败", "查询错误: " + e.getMessage());
 							}
@@ -112,29 +105,44 @@ public class ShareListActivity extends BaseActivity {
 		adapter = new ShareListAdapter(ShareListActivity.this, shareList);
 		actualListView.setAdapter(adapter);
 		loading("正在加载数据...");
-		getHeadData();
+		headPath = SharePreferenceUtil.getInstance(getApplicationContext()).getString("head", "");
+		if (TextUtils.isEmpty(headPath)) {
+			circleImageView.setImageResource(R.drawable.head);
+		} else {
+			MyApplication.display(circleImageView, headPath);
+		}
 		getRemoteData();
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		headPath = SharePreferenceUtil.getInstance(getApplicationContext()).getString("head", "");
+		if (TextUtils.isEmpty(headPath)) {
+			circleImageView.setImageResource(R.drawable.head);
+		} else {
+			MyApplication.display(circleImageView, headPath);
+		}
+	}
 
-	private void getHeadData() {
+
+
+	private void getHeadData(final List<AVObject> avObjectList, final int i) {
 		AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
-		queryHead.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
+		queryHead.whereEqualTo("uid", avObjectList.get(i).getObjectId());
 		queryHead.findInBackground(new FindCallback<AVObject>() {
 			
 			@Override
 			public void done(List<AVObject> avObjects, AVException e) {
-				if (e == null) {
-					Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
-					if (avObjects.size() == 0) {
-						circleImageView.setImageResource(R.drawable.head);
-					} else {
-						MyApplication.display(circleImageView, 
-								avObjects.get(avObjects.size() - 1).getAVFile("attached").getUrl());
-					}
-				} else {
-					circleImageView.setImageResource(R.drawable.head);
+				ShareBean bean = new ShareBean();
+				AVFile avFile = avObjectList.get(i).getAVFile("attached");
+				bean.setHeadPath(headPath);
+				bean.setImageUrl(avFile.getUrl());
+				bean.setContent(avObjectList.get(i).getString("content"));
+				shareList.add(bean);
+				if (avObjectList.size() == (i + 1)) {
+					adapter.notifyDataSetChanged();
 				}
-				getRemoteData();
 			}
 		});
 	}
@@ -154,14 +162,8 @@ public class ShareListActivity extends BaseActivity {
 						return;
 					}
 					for (int i = 0; i < avObjects.size(); i++) {
-						ShareBean bean = new ShareBean();
-						AVFile avFile = avObjects.get(i).getAVFile("attached");
-						bean.setImageUrl(avFile.getUrl());
-						bean.setContent(avObjects.get(i).getString("content"));
-						shareList.add(bean);
-
+						getHeadData(avObjects, i);
 					}
-					adapter.notifyDataSetChanged();
 				} else {
 					Log.d("失败", "查询错误: " + e.getMessage());
 				}

@@ -6,10 +6,12 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.example.xuxianjing.MyApplication;
 import com.example.xuxianjing.R;
 import com.example.xuxianjing.Util.AppManager;
+import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
 import com.example.xuxianjing.activity.reside.CalendarFragment;
@@ -25,8 +27,10 @@ import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -39,23 +43,21 @@ public class MainActivity extends BaseActivity {
 	private static final int SHARE_RETURN = 0X12;
 	
 	private ResideMenu resideMenu;
-    private MainActivity mContext;
     private ResideMenuItem itemHome;
     private ResideMenuItem itemProfile;
     private ResideMenuItem itemCalendar;
     private ResideMenuItem itemSettings;
-    
 	private PullToRefreshListView mPullRefreshListView;
 	private ArrayList<ShareBean> shareList;
 	private ShareListAdapter adapter;
 	private ListView actualListView;
 	private int pageCount = 10;
 	private long mExitTime;
+	private String headPath;
 
 	@Override
 	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_main_discover);
-		mContext = this;
 		shareList = new ArrayList<ShareBean>();
 		TopBar topBar = new TopBar(this, "感悟");
 		findViewById(R.id.btn_back).setVisibility(View.GONE);
@@ -68,7 +70,6 @@ public class MainActivity extends BaseActivity {
 				Utils.startActivityForResult(MainActivity.this, SendMessageActivity.class, SHARE_RETURN);
 			}
 		});
-//        parentView.findViewById(R.id.pull_refresh_list);
         mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -97,9 +98,11 @@ public class MainActivity extends BaseActivity {
 								for (int i = 0; i < avObjects.size(); i++) {
 									ShareBean bean = new ShareBean();
 									AVFile avFile = avObjects.get(i).getAVFile("attached");
+									bean.setHeadPath("");
 									bean.setImageUrl(avFile.getUrl());
 									bean.setContent(avObjects.get(i).getString("content"));
 									shareList.add(bean);
+//									getHeadData(avObjects, i);
 								}
 								adapter.notifyDataSetChanged();
 							} else {
@@ -118,19 +121,39 @@ public class MainActivity extends BaseActivity {
 		findViewById(R.id.btn_my_icon).setVisibility(View.VISIBLE);
 		setUpMenu();
         loading("正在加载数据...");
-        getRemoteData();    
-//		findViewById(R.id.btn_my_icon).setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Utils.startActivity(MainActivity.this, ShareListActivity.class);
-//			}
-//		});
-		
+        if(TextUtils.isEmpty(MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head"))){
+			getHeadData();
+		} else {
+			headPath = MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head");
+			SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", headPath);
+			getRemoteData(); 
+		}
+	}
+	
+	private void getHeadData() {
+		AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
+		queryHead.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
+		queryHead.findInBackground(new FindCallback<AVObject>() {
+			
+			@Override
+			public void done(List<AVObject> avObjects, AVException e) {
+				if (e == null) {
+					Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
+					if (avObjects.size() == 0) {
+						MyApplication.mCache.put(AVUser.getCurrentUser().getObjectId() + "head", "默认头像");
+					} else {
+						headPath = avObjects.get(avObjects.size() - 1).getAVFile("attached").getUrl();
+						MyApplication.mCache.put(AVUser.getCurrentUser().getObjectId() + "head", headPath);
+						SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", headPath);
+					}
+				} else {
+				}
+				getRemoteData();
+			}
+		});
 	}
 	
 	private void setUpMenu() {
-
         // attach to current activity;
         resideMenu = new ResideMenu(this);
         resideMenu.setBackground(R.drawable.menu_background);
@@ -172,15 +195,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 	
-//	private void changeFragment(Fragment targetFragment){
-//        resideMenu.clearIgnoredViewList();
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.main_fragment, targetFragment, "fragment")
-//                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                .commit();
-//    }
-	
 	private void getRemoteData() {
 		AVQuery<AVObject> query = new AVQuery<AVObject>("share");
 		query.setLimit(10); // 限制最多10个结果
@@ -195,12 +209,27 @@ public class MainActivity extends BaseActivity {
 						return;
 					}
 					for (int i = 0; i < avObjects.size(); i++) {
+//						AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
+//						queryHead.whereEqualTo("uid", avObjects.get(i).get("uid"));
+//						queryHead.findInBackground(new FindCallback<AVObject>() {
+//
+//							@Override
+//							public void done(List<AVObject> avObjects, AVException e) {
+//								if (avObjects == null || avObjects.size() == 0) {
+//									headPath2 = headPath;
+//								} else {
+//									headPath2 = avObjects.get(avObjects.size() - 1)
+//											.getAVFile("attached").getUrl();
+//								}
+//								
+//							}
+//						});
 						ShareBean bean = new ShareBean();
 						AVFile avFile = avObjects.get(i).getAVFile("attached");
+						bean.setHeadPath("");
 						bean.setImageUrl(avFile.getUrl());
 						bean.setContent(avObjects.get(i).getString("content"));
 						shareList.add(bean);
-
 					}
 					adapter.notifyDataSetChanged();
 				} else {
@@ -209,6 +238,29 @@ public class MainActivity extends BaseActivity {
 			}
 		});
 	}
+//	String headPath2;
+//	private void getHeadData(final List<AVObject> avObjectList) {
+//		for (int i = 0; i < avObjectList.size(); i++) {
+//			AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
+//			queryHead.whereEqualTo("uid", avObjectList.get(i).get("uid"));
+//			queryHead.findInBackground(new FindCallback<AVObject>() {
+//
+//				@Override
+//				public void done(List<AVObject> avObjects, AVException e) {
+//					if (avObjects == null || avObjects.size() == 0) {
+//						headPath2 = headPath;
+//					} else {
+//						headPath2 = avObjects.get(avObjects.size() - 1)
+//								.getAVFile("attached").getUrl();
+//					}
+//					
+//				}
+//			});
+//			shareList.get(i).setHeadPath(headPath2);
+//			
+//		}
+//		adapter.notifyDataSetChanged();
+//	}
 	
 	
 	@Override
