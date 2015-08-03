@@ -109,7 +109,7 @@ public class RegisterActivity extends BaseActivity {
 												SharePreferenceUtil.getInstance(getApplicationContext()).setString("token", user.getSessionToken());
 												SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone", user.getUsername());
 												SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
-												Utils.startActivity(RegisterActivity.this, MainActivity.class);
+												Utils.startActivity(RegisterActivity.this, MainActivity3.class);
 												finish();
 											}
 										});

@@ -125,7 +125,7 @@ public class ImageLocalActivity extends BaseActivity implements OnImageDirSelect
 	
 	@Override
 	public void initWidget(Bundle savedInstanceState) {
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main2);
 		TopBar topBar = new TopBar(this, "选择相片");
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);

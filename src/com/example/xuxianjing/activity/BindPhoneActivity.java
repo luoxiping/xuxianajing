@@ -101,7 +101,7 @@ public class BindPhoneActivity extends BaseActivity {
 									SharePreferenceUtil.getInstance(getApplicationContext()).setString("token", user.getSessionToken());
 									SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone", user.getUsername());
 									SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
-									Utils.startActivity(BindPhoneActivity.this, MainActivity.class);
+									Utils.startActivity(BindPhoneActivity.this, MainActivity3.class);
 									finish();
 						        } else {
 						        	MyApplication.showToast("登陆失败");

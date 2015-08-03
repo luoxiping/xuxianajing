@@ -1,5 +1,6 @@
 package com.example.xuxianjing.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Selection;
 import android.text.Spannable;
@@ -82,6 +83,8 @@ public class LoginActivity extends BaseActivity {
 							SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone",
 									user.getUsername());
 							SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
+//							Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//							startActivity(intent);
 							Utils.startActivity(LoginActivity.this, MainActivity.class);
 							finish();
 						} else {
