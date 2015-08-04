@@ -127,7 +127,7 @@ public class ChangeHeadActivity extends BaseActivity {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			mBitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
 			byte[] bs = out.toByteArray();
-			AVUser user = AVUser.getCurrentUser();
+			final AVUser user = AVUser.getCurrentUser();
 			String name = user.getUsername() + "_" + System.currentTimeMillis();
 			avFile = new AVFile(name, bs);
 			avFile.saveInBackground(new SaveCallback() {
@@ -135,56 +135,25 @@ public class ChangeHeadActivity extends BaseActivity {
 				@Override
 				public void done(AVException e) {
 					if (e == null) {
-						AVObject avObject = new AVObject("Head");
-						avObject.put("attached", avFile);
-						avObject.put("uid", AVUser.getCurrentUser().getObjectId());
-						avObject.saveInBackground(new SaveCallback() {
+						user.put("headav", avFile);
+						user.saveInBackground(new SaveCallback() {
 							
 							@Override
 							public void done(AVException e) {
-								
+								destroyLoading();
 								if (e == null) {
-									AVQuery<AVObject> query = new AVQuery<AVObject>("Head");
-									query.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
-									query.findInBackground(new FindCallback<AVObject>() {
-										public void done(List<AVObject> avObjects, AVException e) {
-											
-											if (e == null) {
-												Log.d("成功", "查询到" + avObjects.size() + " 条符合条件的数据");
-												if (avObjects.size() == 0) {
-													return;
-												}
-												AVFile avFile2 = avObjects.get(avObjects.size() - 1).getAVFile("attached");
-												SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", avFile2.getUrl());
-												AVFile avFile = avObjects.get(0).getAVFile("attached");
-												avFile.deleteInBackground(new DeleteCallback() {
-													
-													@Override
-													public void done(AVException e) {
-														destroyLoading();
-														MyApplication.mCache.put(AVUser.getCurrentUser().getObjectId() + "head", "");
-														MyApplication.showToast("保存成功!");
-													}
-												});
-											} else {
-												destroyLoading();
-												Log.d("失败", "查询错误: " + e.getMessage());
-											}
-										}
-									});
-									
+									MyApplication.showToast("保存成功");
 								} else {
-									destroyLoading();
-									MyApplication.showToast(e.toString());
+									MyApplication.showToast("保存失败");
 								}
 							}
 						});
-					} else {
+					}else {
 						destroyLoading();
-						MyApplication.showToast(e.toString());
+						MyApplication.showToast("保存失败");
 					}
 				}
-			});
+				});
 			break;
 
 		default:

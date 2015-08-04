@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
 		// }
 
 		if (SharePreferenceUtil.getInstance(getApplicationContext()).getString("token", null) != null) {
-			Utils.startActivity(LoginActivity.this, MainActivity.class);
+			Utils.startActivity(LoginActivity.this, MainActivity3.class);
 			finish();
 		}
 		if (SharePreferenceUtil.getInstance(getApplicationContext()).getString("phone", null) != null) {
@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity {
 							SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
 //							Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //							startActivity(intent);
-							Utils.startActivity(LoginActivity.this, MainActivity.class);
+							Utils.startActivity(LoginActivity.this, MainActivity3.class);
 							finish();
 						} else {
 							MyApplication.showToast("登陆失败");

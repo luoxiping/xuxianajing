@@ -121,13 +121,14 @@ public class MainActivity3 extends BaseActivity {
 		findViewById(R.id.btn_my_icon).setVisibility(View.VISIBLE);
 		setUpMenu();
         loading("正在加载数据...");
-        if(TextUtils.isEmpty(MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head"))){
-			getHeadData();
-		} else {
-			headPath = MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head");
-			SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", headPath);
-			getRemoteData(); 
-		}
+//        if(TextUtils.isEmpty(MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head"))){
+//			getHeadData();
+//		} else {
+//			headPath = MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head");
+//			SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", headPath);
+//			
+//		}
+        getRemoteData(); 
 	}
 	
 	private void getHeadData() {
@@ -200,7 +201,7 @@ public class MainActivity3 extends BaseActivity {
 		query.setLimit(10); // 限制最多10个结果
 		query.orderByDescending("createdAt");
 		query.findInBackground(new FindCallback<AVObject>() {
-			public void done(List<AVObject> avObjects, AVException e) {
+			public void done(final List<AVObject> avObjects, AVException e) {
 				destroyLoading();
 				mPullRefreshListView.onRefreshComplete();
 				if (e == null) {
@@ -208,30 +209,28 @@ public class MainActivity3 extends BaseActivity {
 					if (avObjects.size() == 0) {
 						return;
 					}
-					for (int i = 0; i < avObjects.size(); i++) {
-//						AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
-//						queryHead.whereEqualTo("uid", avObjects.get(i).get("uid"));
-//						queryHead.findInBackground(new FindCallback<AVObject>() {
-//
-//							@Override
-//							public void done(List<AVObject> avObjects, AVException e) {
-//								if (avObjects == null || avObjects.size() == 0) {
-//									headPath2 = headPath;
-//								} else {
-//									headPath2 = avObjects.get(avObjects.size() - 1)
-//											.getAVFile("attached").getUrl();
-//								}
-//								
-//							}
-//						});
-						ShareBean bean = new ShareBean();
-						AVFile avFile = avObjects.get(i).getAVFile("attached");
-						bean.setHeadPath("");
-						bean.setImageUrl(avFile.getUrl());
-						bean.setContent(avObjects.get(i).getString("content"));
-						shareList.add(bean);
+					for (final int i = 0; i < avObjects.size(); i++) {
+						AVQuery<AVUser> query = AVUser.getQuery();
+						query.whereEqualTo("objectId", avObjects.get(i).getObjectId());
+						query.findInBackground(new FindCallback<AVUser>() {
+						    public void done(List<AVUser> objects, AVException e) {
+						        if (e == null) {
+						            // 查询成功
+						        	ShareBean bean = new ShareBean();
+									AVFile avFile = avObjects.get(i).getAVFile("attached");
+									AVFile avFile2 = (AVFile) objects.get(0).get("headav");
+									bean.setHeadPath(avFile2.getUrl());
+									bean.setImageUrl(avFile.getUrl());
+									bean.setContent(avObjects.get(i).getString("content"));
+									shareList.add(bean);
+						        } else {
+						            // 查询出错
+						        }
+						    }
+						});
+						
 					}
-					adapter.notifyDataSetChanged();
+					
 				} else {
 					Log.d("失败", "查询错误: " + e.getMessage());
 				}

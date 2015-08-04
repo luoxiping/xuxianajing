@@ -97,20 +97,25 @@ public class RegisterActivity extends BaseActivity {
 									@Override
 									public void done(AVException arg0) {
 										destroyLoading();
-										AVObject avObject = new AVObject("Head");
-										avObject.put("attached", avFile);
-										avObject.put("uid", user.getObjectId());
-										avObject.saveInBackground(new SaveCallback() {
+										user.put("headav", avFile);
+										user.saveInBackground(new SaveCallback() {
 											
 											@Override
 											public void done(AVException e) {
-												MyApplication.mCache.put(AVUser.getCurrentUser().getObjectId() + "head", "");
-												MyApplication.showToast("登陆成功");
-												SharePreferenceUtil.getInstance(getApplicationContext()).setString("token", user.getSessionToken());
-												SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone", user.getUsername());
-												SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
-												Utils.startActivity(RegisterActivity.this, MainActivity3.class);
-												finish();
+												destroyLoading();
+												if (e == null) {
+													MyApplication.mCache.put(AVUser.getCurrentUser().getObjectId() + "head", "");
+													MyApplication.showToast("登陆成功");
+													SharePreferenceUtil.getInstance(getApplicationContext()).setString("token", user.getSessionToken());
+													SharePreferenceUtil.getInstance(getApplicationContext()).setString("phone", user.getUsername());
+													SharePreferenceUtil.getInstance(getApplicationContext()).setString("uid", user.getUuid());
+													AVFile avFile = (AVFile) user.get("headav");
+													SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", avFile.getUrl());
+													Utils.startActivity(RegisterActivity.this, MainActivity3.class);
+													finish();
+												} else {
+													MyApplication.showToast("登陆失败");
+												}
 											}
 										});
 									}
