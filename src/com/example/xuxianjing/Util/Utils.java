@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -101,5 +103,21 @@ public class Utils {
 		Matcher matcher = pattern.matcher(num);
 
 		return matcher.matches();
+	}
+	
+	/**
+	 * 获取版本号
+	 * @return 当前应用的版本号
+	 */
+	public static String getVersion(Activity activity) {
+	    try {
+	        PackageManager manager = activity.getPackageManager();
+	        PackageInfo info = manager.getPackageInfo(activity.getPackageName(), 0);
+	        String version = info.versionName;
+	        return version;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "获取版本号异常";
+	    }
 	}
 }

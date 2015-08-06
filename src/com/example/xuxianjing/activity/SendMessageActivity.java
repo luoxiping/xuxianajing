@@ -73,17 +73,17 @@ public class SendMessageActivity extends BaseActivity {
 					MyApplication.showToast("您必须分享一张图片!");
 					return;
 				}
-				String headPath = Environment.getExternalStorageState() + "/xuxianjing/cache/head.jpg";
-				Bitmap headBitmap = BitmapFactory.decodeFile(headPath);
-				ByteArrayOutputStream outHead = new ByteArrayOutputStream();
-				headBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outHead);
-				final byte[] bsHead = outHead.toByteArray();
+//				String headPath = Environment.getExternalStorageState() + "/xuxianjing/cache/head.jpg";
+//				Bitmap headBitmap = BitmapFactory.decodeFile(headPath);
+//				ByteArrayOutputStream outHead = new ByteArrayOutputStream();
+//				headBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outHead);
+//				final byte[] bsHead = outHead.toByteArray();
 				
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				mBitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
 				byte[] bs = out.toByteArray();
-				AVUser user = AVUser.getCurrentUser();
-				final String nameHead = user.getUsername() + "__" + System.currentTimeMillis();
+				final AVUser user = AVUser.getCurrentUser();
+//				final String nameHead = user.getUsername() + "__" + System.currentTimeMillis();
 				String name = user.getUsername() + "_" + System.currentTimeMillis();
 				avFile = new AVFile(name, bs);
 				
@@ -92,43 +92,45 @@ public class SendMessageActivity extends BaseActivity {
 					@Override
 					public void done(AVException e) {
 						if (e == null) {
-							final AVFile avFileHead = new AVFile(nameHead, bsHead);
-							avFileHead.saveInBackground(new SaveCallback() {
+//							final AVFile avFileHead = new AVFile(nameHead, bsHead);
+							AVObject avObject = new AVObject("share");
+							avObject.put("attached", avFile);
+							AVFile headAv = (AVFile) user.get("headav");
+							avObject.put("attachedHead", headAv);
+							avObject.put("content", content);
+							avObject.put("uid", AVUser.getCurrentUser().getObjectId());
+							avObject.saveInBackground(new SaveCallback() {
 								
 								@Override
 								public void done(AVException e) {
+									destroyLoading();
 									if (e == null) {
-										AVObject avObject = new AVObject("share");
-										avObject.put("attached", avFile);
-										avObject.put("attachedHead", avFileHead);
-										avObject.put("content", content);
-										avObject.put("uid", AVUser.getCurrentUser().getObjectId());
-										avObject.saveInBackground(new SaveCallback() {
-											
-											@Override
-											public void done(AVException e) {
-												destroyLoading();
-												if (e == null) {
-													MyApplication.showToast("分享成功!");
-													setResult(RESULT_OK);
-//													Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
-													finish();
-												} else {
-													MyApplication.showToast(e.toString());
-												}
-											}
-										});
+										MyApplication.showToast("分享成功!");
+										setResult(RESULT_OK);
+//										Utils.startActivity(SendMessageActivity.this, ShareListActivity.class);
+										finish();
 									} else {
-										destroyLoading();
 										MyApplication.showToast(e.toString());
 									}
 								}
 							});
-							
 						} else {
 							destroyLoading();
 							MyApplication.showToast(e.toString());
 						}
+//							avFileHead.saveInBackground(new SaveCallback() {
+//								
+//								@Override
+//								public void done(AVException e) {
+//									if (e == null) {
+//										
+//								}
+//							});
+							
+//						} else {
+//							destroyLoading();
+//							MyApplication.showToast(e.toString());
+//						}
 					}
 				});
 			}

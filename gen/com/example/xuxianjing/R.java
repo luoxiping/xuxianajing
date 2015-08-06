@@ -514,7 +514,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int residemenu=0x7f030024;
         public static final int residemenu_item=0x7f030025;
         public static final int settings=0x7f030026;
-        public static final int visit_hy_dm_list_singleitem=0x7f030027;
+        public static final int version_layout=0x7f030027;
+        public static final int visit_hy_dm_list_singleitem=0x7f030028;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;

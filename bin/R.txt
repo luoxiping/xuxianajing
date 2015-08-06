@@ -341,7 +341,8 @@ int layout register 0x7f030023
 int layout residemenu 0x7f030024
 int layout residemenu_item 0x7f030025
 int layout settings 0x7f030026
-int layout visit_hy_dm_list_singleitem 0x7f030027
+int layout version_layout 0x7f030027
+int layout visit_hy_dm_list_singleitem 0x7f030028
 int menu main 0x7f0a0000
 int string action_settings 0x7f050007
 int string app_name 0x7f050000

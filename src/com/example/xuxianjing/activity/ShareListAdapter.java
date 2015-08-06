@@ -46,25 +46,28 @@ public class ShareListAdapter extends BaseAdapter {
 		if (conternView == null) {
 			conternView = LayoutInflater.from(activity).inflate(R.layout.activity_share_list_item, null, false);
 			holder.imageView = (ImageView) conternView.findViewById(R.id.imageview);
+			holder.headView = (CircleImageView) conternView.findViewById(R.id.head_image);
 			holder.textView = (TextView) conternView.findViewById(R.id.content);
 			holder.nameTextView = (TextView) conternView.findViewById(R.id.name);
-			holder.circleImageView = (CircleImageView) conternView.findViewById(R.id.head_image);
+			holder.timeView = (TextView) conternView.findViewById(R.id.time);
 			conternView.setTag(holder);
 		} else {
 			holder = (ViewHolder) conternView.getTag();
 		}
 		holder.nameTextView.setText(AVUser.getCurrentUser().getUsername());
-		MyApplication.display(holder.circleImageView, items.get(position).getHeadPath());
+		MyApplication.display(holder.headView, items.get(position).getHeadPath());
 		MyApplication.display(holder.imageView, items.get(position).getImageUrl());
 		holder.textView.setText(items.get(position).getContent());
+		holder.timeView.setText(items.get(position).getTime());
 		return conternView;
 	}
 	
 	class ViewHolder{
 		ImageView imageView;
+		CircleImageView headView;
 		TextView textView;
 		TextView nameTextView;
-		CircleImageView circleImageView;
+		TextView timeView;
 	}
 
 }

@@ -4,6 +4,7 @@ public class ShareBean {
 	private String imageUrl;
 	private String content;
 	private String headPath;
+	private String time;
 	
 	public String getImageUrl() {
 		return imageUrl;
@@ -22,6 +23,12 @@ public class ShareBean {
 	}
 	public void setHeadPath(String headPath) {
 		this.headPath = headPath;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }

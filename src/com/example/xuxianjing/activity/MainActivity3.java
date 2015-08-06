@@ -1,7 +1,11 @@
 package com.example.xuxianjing.activity;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;import org.kymjs.kjframe.database.utils.OneToMany;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+import org.simple.eventbus.ThreadMode;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
@@ -14,10 +18,10 @@ import com.example.xuxianjing.Util.AppManager;
 import com.example.xuxianjing.Util.SharePreferenceUtil;
 import com.example.xuxianjing.Util.TopBar;
 import com.example.xuxianjing.Util.Utils;
-import com.example.xuxianjing.activity.reside.CalendarFragment;
-import com.example.xuxianjing.activity.reside.ProfileFragment;
-import com.example.xuxianjing.activity.reside.SettingsFragment;
 import com.example.xuxianjing.bean.ShareBean;
+import com.example.xuxianjing.dialog.Effectstype;
+import com.example.xuxianjing.dialog.NiftyDialogBuilder;
+import com.example.xuxianjing.service.VersionCodeService;
 import com.example.xuxianjing.view.CircleImageView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -25,6 +29,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
+
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +40,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -54,10 +62,14 @@ public class MainActivity3 extends BaseActivity {
 	private int pageCount = 10;
 	private long mExitTime;
 	private String headPath;
+	private Effectstype effect;
+	private NiftyDialogBuilder dialogBuilder;
 
 	@Override
 	public void initWidget(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_main_discover);
+		EventBus.getDefault().register(this); 
+		dialogBuilder = new NiftyDialogBuilder(this, R.style.dialog_untran);
 		shareList = new ArrayList<ShareBean>();
 		TopBar topBar = new TopBar(this, "感悟");
 		findViewById(R.id.btn_back).setVisibility(View.GONE);
@@ -101,6 +113,7 @@ public class MainActivity3 extends BaseActivity {
 									bean.setHeadPath("");
 									bean.setImageUrl(avFile.getUrl());
 									bean.setContent(avObjects.get(i).getString("content"));
+									bean.setTime(avObjects.get(i).getCreatedAt().toString());
 									shareList.add(bean);
 //									getHeadData(avObjects, i);
 								}
@@ -121,16 +134,18 @@ public class MainActivity3 extends BaseActivity {
 		findViewById(R.id.btn_my_icon).setVisibility(View.VISIBLE);
 		setUpMenu();
         loading("正在加载数据...");
-//        if(TextUtils.isEmpty(MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head"))){
-//			getHeadData();
-//		} else {
-//			headPath = MyApplication.mCache.getAsString(AVUser.getCurrentUser().getObjectId() + "head");
-//			SharePreferenceUtil.getInstance(getApplicationContext()).setString("head", headPath);
-//			
-//		}
+        
         getRemoteData(); 
 	}
 	
+	private void updateVersion() {
+		String versionName = Utils.getVersion(MainActivity3.this);
+		Intent intent = new Intent(MainActivity3.this, VersionCodeService.class);
+		intent.putExtra("version", versionName);
+		startService(intent);
+		
+	}
+
 	private void getHeadData() {
 		AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
 		queryHead.whereEqualTo("uid", AVUser.getCurrentUser().getObjectId());
@@ -209,57 +224,66 @@ public class MainActivity3 extends BaseActivity {
 					if (avObjects.size() == 0) {
 						return;
 					}
-					for (final int i = 0; i < avObjects.size(); i++) {
-						AVQuery<AVUser> query = AVUser.getQuery();
-						query.whereEqualTo("objectId", avObjects.get(i).getObjectId());
-						query.findInBackground(new FindCallback<AVUser>() {
-						    public void done(List<AVUser> objects, AVException e) {
-						        if (e == null) {
-						            // 查询成功
-						        	ShareBean bean = new ShareBean();
-									AVFile avFile = avObjects.get(i).getAVFile("attached");
-									AVFile avFile2 = (AVFile) objects.get(0).get("headav");
-									bean.setHeadPath(avFile2.getUrl());
-									bean.setImageUrl(avFile.getUrl());
-									bean.setContent(avObjects.get(i).getString("content"));
-									shareList.add(bean);
-						        } else {
-						            // 查询出错
-						        }
-						    }
-						});
-						
+					for (int i = 0; i < avObjects.size(); i++) {
+						ShareBean bean = new ShareBean();
+						AVFile avFile = avObjects.get(i).getAVFile("attached");
+						AVFile avFile2 = avObjects.get(i).getAVFile("attachedHead");
+						bean.setHeadPath(avFile2.getUrl());
+						bean.setImageUrl(avFile.getUrl());
+						bean.setContent(avObjects.get(i).getString("content"));
+						shareList.add(bean);
 					}
-					
+					adapter.notifyDataSetChanged();
 				} else {
 					Log.d("失败", "查询错误: " + e.getMessage());
 				}
+				updateVersion();
 			}
 		});
 	}
-//	String headPath2;
-//	private void getHeadData(final List<AVObject> avObjectList) {
-//		for (int i = 0; i < avObjectList.size(); i++) {
-//			AVQuery<AVObject> queryHead = new AVQuery<AVObject>("Head");
-//			queryHead.whereEqualTo("uid", avObjectList.get(i).get("uid"));
-//			queryHead.findInBackground(new FindCallback<AVObject>() {
-//
-//				@Override
-//				public void done(List<AVObject> avObjects, AVException e) {
-//					if (avObjects == null || avObjects.size() == 0) {
-//						headPath2 = headPath;
-//					} else {
-//						headPath2 = avObjects.get(avObjects.size() - 1)
-//								.getAVFile("attached").getUrl();
-//					}
-//					
-//				}
-//			});
-//			shareList.get(i).setHeadPath(headPath2);
-//			
-//		}
-//		adapter.notifyDataSetChanged();
-//	}
+	
+	@Subscriber(tag = "newapp", mode = ThreadMode.MAIN)  
+	 private void executeAsync(final String msg) {
+		Log.e("XX", "444444444444444444444444444444444444444");
+		View view2 = LayoutInflater.from(MainActivity3.this).inflate(R.layout.version_layout, null);
+		effect = Effectstype.Slideleft;
+
+		dialogBuilder.withTitle("版本更新")
+				// .withTitle(null) no title
+				.withTitleColor("#000000")
+				// def
+				// .withDividerColor("#11000000")
+				// def
+				.withMessage(null)
+				// .withMessage(null) no Msg
+				.withMessageColor("#000000")
+				.withButton1Text("确定")
+				.withButton2Text("取消")
+				// def
+				.withIcon(getResources().getDrawable(R.drawable.ic_launcher)).isCancelableOnTouchOutside(true) // def
+																												// |
+																												// isCancelable(true)
+				.withDuration(700) // def
+				.withEffect(effect) // def Effectstype.Slidetop
+				.setCustomView(view2, this).show();
+		TextView textView = (TextView) view2.findViewById(R.id.text);
+		textView.setText("有新版本！");
+		
+		dialogBuilder.setButton1Click(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialogBuilder.dismiss();
+			}
+		});
+		dialogBuilder.setButton2Click(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialogBuilder.dismiss();
+			}
+		});
+	 } 
 	
 	
 	@Override
@@ -291,7 +315,6 @@ public class MainActivity3 extends BaseActivity {
 	@Override
 	public void widgetClick(View view) {
 		if (view == itemHome){
-			
 //            changeFragment(new HomeFragment());
         }else if (view == itemProfile){
         	Utils.startActivity(MainActivity3.this, ShareListActivity.class);
@@ -323,6 +346,12 @@ public class MainActivity3 extends BaseActivity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 	}
 
 }
