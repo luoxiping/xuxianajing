@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 public class MyApplication extends Application {
+	public static int screenW;
+    public static int screenH;
 	private static Context mContext;
 	public static KJBitmap kjb;
 	public static ACache mCache;

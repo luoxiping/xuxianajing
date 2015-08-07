@@ -8,22 +8,22 @@ package com.special.ResideMenu;
 
 public final class R {
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f02002e;
-		public static final int shadow = 0x7f02004d;
+		public static final int ic_launcher = 0x7f020031;
+		public static final int shadow = 0x7f020050;
 	}
 	public static final class id {
-		public static final int iv_background = 0x7f07007d;
-		public static final int iv_icon = 0x7f070083;
-		public static final int iv_shadow = 0x7f07007e;
-		public static final int layout_left_menu = 0x7f070080;
-		public static final int layout_right_menu = 0x7f070082;
-		public static final int sv_left_menu = 0x7f07007f;
-		public static final int sv_right_menu = 0x7f070081;
-		public static final int tv_title = 0x7f070084;
+		public static final int iv_background = 0x7f07007e;
+		public static final int iv_icon = 0x7f070084;
+		public static final int iv_shadow = 0x7f07007f;
+		public static final int layout_left_menu = 0x7f070081;
+		public static final int layout_right_menu = 0x7f070083;
+		public static final int sv_left_menu = 0x7f070080;
+		public static final int sv_right_menu = 0x7f070082;
+		public static final int tv_title = 0x7f070085;
 	}
 	public static final class layout {
-		public static final int residemenu = 0x7f030024;
-		public static final int residemenu_item = 0x7f030025;
+		public static final int residemenu = 0x7f030025;
+		public static final int residemenu_item = 0x7f030026;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f050000;

@@ -47,7 +47,7 @@
             android:gravity="center"
             android:onClick="doClick"
             android:text="确定"
-            android:textColor="@color/red"
+            android:textColor="@color/red_press"
             android:textSize="16sp"
             android:visibility="gone" />
 

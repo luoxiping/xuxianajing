@@ -236,7 +236,7 @@ public class MainActivity3 extends BaseActivity {
 	@Subscriber(tag = "newapp", mode = ThreadMode.MAIN)
 	private void executeAsync(final String msg) {
 		View view2 = LayoutInflater.from(MainActivity3.this).inflate(R.layout.version_layout, null);
-		effect = Effectstype.Slideleft;
+		effect = Effectstype.Slidetop;
 
 		dialogBuilder.withTitle("版本更新")
 				// .withTitle(null) no title
@@ -246,17 +246,19 @@ public class MainActivity3 extends BaseActivity {
 				// def
 				.withMessage(null)
 				// .withMessage(null) no Msg
-				.withMessageColor("#000000").withButton1Text("确定").withButton2Text("取消")
+				.withMessageColor("#000000")
+				.withButton1Text("确定")
+				.withButton2Text("取消")
 				// def
-				.withIcon(getResources().getDrawable(R.drawable.ic_launcher)).isCancelableOnTouchOutside(true) // def
-																												// |
-																												// isCancelable(true)
+				.withIcon(getResources()
+				.getDrawable(R.drawable.ic_launcher))
+				.isCancelableOnTouchOutside(true) // def
 				.withDuration(700) // def
 				.withEffect(effect) // def Effectstype.Slidetop
 				.setCustomView(view2, this).show();
 		TextView textView = (TextView) view2.findViewById(R.id.text);
 		String[] msgArr = msg.split("换行");
-		String newMsg = null;
+		String newMsg = "";
 		for (int i = 0; i < msgArr.length; i++) {
 			newMsg = newMsg + msgArr[i] + "\n";
 		}

@@ -22,7 +22,8 @@
     
     <color name="transparent">#00000000</color>
     <color name="half_transparent">#40000000</color>
-    <color name="red">#FF0000</color>
+    <color name="red_press">#FF0000</color>
+    <color name="red_normal">#EE4000</color>
     <color name="translucent_background">#CC000000</color>
     <color name="blue_text">#399cd7</color>
     <color name="green_nornal">#4EEE94</color>

@@ -120,7 +120,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
 
             <Button
                 android:id="@+id/button2"
-                style="@style/dialog_btn"
+                style="@style/dialog_btn_cancel"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:text="Cancle"
