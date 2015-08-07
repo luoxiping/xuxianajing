@@ -47,15 +47,13 @@ public class VersionCodeService extends Service {
 			@Override
 			public void done(List<AVObject> avList, AVException e) {
 				String version = avList.get(0).getString("versioncode");
+				String content = avList.get(0).getString("content");
 				if (version.equals("获取版本号异常")) {
-					Log.e("XX", "11111111111111111111111111111111111111");
 					stopSelf();
 				} else if (version.equals(versionName)){
-					Log.e("XX", "2222222222222222222222222222222222222222");
 					stopSelf();
 				} else {
-					Log.e("XX", "3333333333333333333333333333333333333333");
-					EventBus.getDefault().post("下载新版本APP", "newapp");
+					EventBus.getDefault().post(content, "newapp");
 					stopSelf();
 				}
 			}
